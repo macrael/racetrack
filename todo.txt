@@ -1,0 +1,18 @@
+todo.txt
+
+
+This Project
+
+
+
+IN GENERAL
+----------
+* auto build/run server on save
+* something to hit the api server with
+* switch to a customized vim?
+
+
+
+
+* protobufs
+* the various aws's
