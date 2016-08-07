@@ -9,6 +9,40 @@ This Project
 
 
 
+UI
+==
+
+VIEW:
+-----
+Three tabs:
+* plebs  "/"
+* queens  "/queens"
+* episodes "/episodes"
+
+
+EDIT:
+-----
+* add new episode
+	* add/remove scoreing from episode
+* add new queen
+* add new pleb
+
+
+BACKEND
+=======
+* get everything at once?
+
+API
+===
+/seasons/:id
+/seasons/:id/plebs/:id
+
+
+
+
+DATABASE
+========
+
 
 
 IN GENERAL

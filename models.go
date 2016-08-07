@@ -6,11 +6,6 @@ type Queen struct{
 	Name string		`json:"name"`
 }
 
-type Player struct {
-	Name string		`json:"name"`
-	TeamName string	`json:"team_name"`
-}
-
 type Episode struct {
 	Number uint		`json:"number"`
 	Scores []Scored	`json:"scores"`

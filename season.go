@@ -5,6 +5,8 @@ import (
 	"net/http"
 	"encoding/json"
 	"time"
+
+	"github.com/gorilla/mux"
 )
 
 var Seasons []Season
@@ -29,5 +31,10 @@ func GetSeasons(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetSeason(w http.ResponseWriter, r *http.Request) {
+	season_id := mux.Vars(r)["season_id"]
+	fmt.Println("id; ", season_id)
 
+	fmt.Fprintf(w, "hhihi")
 }
+
+// current season?

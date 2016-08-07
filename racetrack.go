@@ -50,13 +50,28 @@ func dummySeason() Season {
 }
 
 
+
+func ServeIndex(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Have the site. ")
+    http.ServeFile(w, r, "./static/index.html")
+}
+
 func main() {
 	fmt.Println("in main")
 
-	r := mux.NewRouter()
-	r.Handle("/", http.FileServer(http.Dir("./static")))
+	r := mux.NewRouter().StrictSlash(true)
+
 	api := r.PathPrefix("/api").Subrouter()
 	api.HandleFunc("/seasons", GetSeasons)
+	api.HandleFunc("/seasons/{season_id}", GetSeason)
+
+
+	r.PathPrefix("/assets").Handler(http.StripPrefix("/assets", http.FileServer(http.Dir("./static/"))))
+	
+	// Serve our single page site to any valid url
+	r.HandleFunc("/", ServeIndex)
+	r.HandleFunc("/queen", ServeIndex)
+	r.HandleFunc("/edit", ServeIndex)
 
 
 	fmt.Println("testing")
@@ -65,9 +80,11 @@ func main() {
 	Seasons = []Season{s}
 	fmt.Println(s)
 
+	// http.Handle("/", r)
 	http.ListenAndServe(":8080", r)
 
 }
+
 
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {

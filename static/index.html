@@ -2,11 +2,55 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script type="text/javascript" src="assets/jquery-3.1.0.js"></script>
+<script type="text/javascript" src="assets/navigo.js"></script>
 <title>Racetrack</title>
+<script type="text/javascript">
+
+    $('document').ready(function() {
+        console.log("hello there");
+
+
+        router = new Navigo(null, false);
+        
+        router.on("/queen", function() {
+            console.log("queeeeen");
+        });
+
+
+        router.on("/$", function() {
+            console.log("slashhhhh");
+        });
+
+        router.on(function() {
+            console.log("404");
+        });
+        router.resolve();
+
+
+
+
+
+        $("#clickbutton").click(function() {
+
+            console.log("Bugtong rpessdd");
+
+
+
+        });
+    });
+
+</script>
 </head>
 <body>
 
-<h1>hello there</h1>
+<h1>RPDR Feel The Fantasy League</h1>
+
+<button type="button" id="clickbutton">Go!</button>
+
+<div id="output">
+output...
+</div>
 
 </body>
 </html>
