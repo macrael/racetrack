@@ -36,8 +36,17 @@ API
 ===
 /seasons/:id
 /seasons/:id/plebs/:id
+/seasons/:id/queens/:id
+/seasons/:id/queens/:id/scores/:id
+/seasons/:id/episodes/:id
+/seasons/:id/episodes/:id/scores/:id
 
+/current_season/
 
+plebs and queens actually span seasons, so maybe drop that prefix, just have them all hang
+but maybe make an api that pulls down everything for a season since that should be everything. 
+	* if they are independent of seasons, the plebs still have the season specific "which are my queens" thing
+	* maybe this is premature optimization. There's still season specific stuff about all of them. 
 
 
 DATABASE
@@ -50,9 +59,18 @@ IN GENERAL
 * auto build/run server on save
 * something to hit the api server with
 * switch to a customized vim?
+* build API niceities so that the backend is easy
+* have some sort of wholistic client/server dev story
+
+
+Spent too much time on
+----------------------
+* routing
 
 
 
-
+tech
+-----
 * protobufs
+* gRPC
 * the various aws's

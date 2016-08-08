@@ -10,7 +10,7 @@ import (
 
 func dummySeason() Season {
 	s := Season{}
-	s.Id = 1
+	s.Key = "season:2016"
 	s.Year = 2016
 	s.Title = "The one Bob wins"
 
@@ -63,8 +63,8 @@ func main() {
 
 	api := r.PathPrefix("/api").Subrouter()
 	api.HandleFunc("/seasons", GetSeasons)
+	api.HandleFunc("/seasons/current", GetCurrentSeason)
 	api.HandleFunc("/seasons/{season_id}", GetSeason)
-
 
 	r.PathPrefix("/assets").Handler(http.StripPrefix("/assets", http.FileServer(http.Dir("./static/"))))
 	
