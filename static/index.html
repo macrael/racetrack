@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <script type="text/javascript" src="assets/jquery-3.1.0.js"></script>
 <script type="text/javascript" src="assets/navigo.js"></script>
+<script type="text/javascript" src="assets/racetrack.js"></script>
+<script type="text/javascript" src="assets/config.js.dev"></script>
 <title>Racetrack</title>
 <script type="text/javascript">
 
@@ -28,10 +30,18 @@
         router.resolve();
 
 
+        loadSeason(null, function(season) {
+            console.log("Loaded!");
 
+            var title = season["title"];
+            $("#season_name").html(title);
 
+            
+        });
 
-        $("#clickbutton").click(function() {
+        console.log(RacetrackConfig)
+
+        $("#click_button").click(function() {
 
             console.log("Bugtong rpessdd");
 
@@ -45,8 +55,9 @@
 <body>
 
 <h1>RPDR Feel The Fantasy League</h1>
+<h2 id="season_name">¡Season Name¡</h2>
 
-<button type="button" id="clickbutton">Go!</button>
+<button type="button" id="click_button">Go!</button>
 
 <div id="output">
 output...

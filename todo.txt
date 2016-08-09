@@ -4,7 +4,8 @@ todo.txt
 This Project
 ============
 * get something on the frontend up that can pull the season down for it
-* start putting things on redis
+
+x start putting things on redis
 
 
 
