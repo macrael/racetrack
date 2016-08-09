@@ -24,6 +24,7 @@
 <script id="edit-queens" type="text/x-handlebars-template">
     <h1>queens</h1>
     {{{new_queen}}}
+    {{{old_queens}}}
 </script>
 
 <script id="new-queen" type="text/x-handlebars-template">
@@ -40,12 +41,12 @@
         <th>Queen Name</th>
     </thead>
     <tbody>
-        {{#queens}}
+        {{#each queens}}
         <tr>
             <td>{{name}}</td>
-            <td><button>delete</button></td>
+            <td><button id="DEL{{key}}">delete</button></td>
         </tr>
-        {{/users}}
+        {{/each}}
     </tbody>
 </table>
 </script>

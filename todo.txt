@@ -5,15 +5,21 @@ This Project
 ============
 x get something on the frontend up that can pull the season down for it
 x start putting things on redis
+x create fill_in_current route function for one route
+x call that route with the downloaded thing
 
-* create fill_in_current route function for each route
-* call that route with the downloaded thing
+x create new queen
+x list all queens
+* delete queen:: Ugh, apparently ":" in html id's mess up jquery
 
-
-* create new queen
 * create new episode
 * create new player
 
+* create nav between different parts of main pages. 
+* dress up the UI
+
+* setup remote git repository
+* push to heroku
 
 UI
 ==
@@ -67,7 +73,18 @@ TESTS I SHOULD HAVE CREATED
 	* needs to reset database stuff in between, or start fresh
 * I kindof like the idea of testing the api consumer and the api together, then you just aren't testing the UI
 
+* In one test, should be able to:
+	* seed database
+	* run server?
+	* run my javascript code, make ajax request
+	* check database
+	* check returns 
+	* inspect request body
+	* inspect response body
+	* clear database
 
+==================================================
+==================================================
 
 IN GENERAL
 ==========
@@ -80,6 +97,7 @@ IN GENERAL
 * should be creating tests all the time
 	* The easier it is to create a broad test the better
 
+* I want to be able to see the body of every request, and the text of every db query
 
 EDITOR
 ------

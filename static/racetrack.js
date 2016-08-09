@@ -70,7 +70,7 @@ function loadEditQueensView(season) {
 	var new_queen_template = Handlebars.compile($("#new-queen").html());
 	var queens_list_template = Handlebars.compile($("#queens-list").html());
 
-	var new_content = edit_main_template({season_title: TheSeason["title"], bod: edit_queens_template({new_queen: new_queen_template()})});
+	var new_content = edit_main_template({season_title: TheSeason["title"], bod: edit_queens_template({new_queen: new_queen_template(), old_queens: queens_list_template({queens: TheSeason.queens})})});
 
 	$("#content").html(new_content);
 	$("#new-queen-form").submit(function(e) {
@@ -80,6 +80,19 @@ function loadEditQueensView(season) {
 			name: $("input#name").val()
 		};
 		postQueen(newQueen);
+
+		//TODO: pull down new truth?...... really just need to add this queen to the list....
+	});
+	// hook up all the delete buttons
+	TheSeason.queens.forEach(function(queen, index) {
+		console.log(queen);
+		var del_key = "#DEL" + queen.key;
+		console.log(del_key);
+		console.log($(del_key));
+		$(del_key).click(function() {
+			console.log("DEL CLICK", queen.key);
+
+		});
 	});
 
 }
