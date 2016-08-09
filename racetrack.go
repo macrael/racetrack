@@ -14,8 +14,8 @@ func dummySeason() Season {
 	s.Year = 2016
 	s.Title = "The one Bob wins"
 
-	bob := Queen{"Bob the drag queen"}
-	chichi := Queen{"Chi chi"}
+	bob := Queen{"season:2016", "Bob the drag queen"}
+	chichi := Queen{"season:2016", "Chi chi"}
 
 	queens := []Queen{bob, chichi}
 	s.Queens = queens
@@ -65,6 +65,7 @@ func main() {
 	api.HandleFunc("/seasons", GetSeasons)
 	api.HandleFunc("/seasons/current", GetCurrentSeason)
 	api.HandleFunc("/seasons/{season_id}", GetSeason)
+	api.HandleFunc("/seasons/{season_id}/queens", PostQueen).Methods("POST")
 
 	r.PathPrefix("/assets").Handler(http.StripPrefix("/assets", http.FileServer(http.Dir("./static/"))))
 	
@@ -72,6 +73,7 @@ func main() {
 	r.HandleFunc("/", ServeIndex)
 	r.HandleFunc("/queen", ServeIndex)
 	r.HandleFunc("/edit", ServeIndex)
+	r.HandleFunc("/edit/queens", ServeIndex)
 
 
 	fmt.Println("testing")

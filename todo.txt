@@ -3,9 +3,16 @@ todo.txt
 
 This Project
 ============
-* get something on the frontend up that can pull the season down for it
-
+x get something on the frontend up that can pull the season down for it
 x start putting things on redis
+
+* create fill_in_current route function for each route
+* call that route with the downloaded thing
+
+
+* create new queen
+* create new episode
+* create new player
 
 
 
@@ -63,12 +70,24 @@ IN GENERAL
 * build API niceities so that the backend is easy
 * have some sort of wholistic client/server dev story
 
+* should be creating tests all the time
+
+
+EDITOR
+------
+* auto add ";" to end of line and create new line. 
+
 
 Spent too much time on
 ----------------------
 * routing
 
 
+TESTS I SHOULD HAVE CREATED
+---------------------------
+* post queen: starting in javascript, against a test server, verify that thing is create serverside, that 201 is returned. 
+	* needs to be able to run with build && run serer && test
+	* needs to reset database stuff in between, or start fresh
 
 tech
 -----

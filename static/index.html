@@ -2,66 +2,62 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script type="text/javascript" src="assets/jquery-3.1.0.js"></script>
-<script type="text/javascript" src="assets/navigo.js"></script>
-<script type="text/javascript" src="assets/racetrack.js"></script>
-<script type="text/javascript" src="assets/config.js.dev"></script>
+<script type="text/javascript" src="/assets/jquery-3.1.0.js"></script>
+<script type="text/javascript" src="/assets/navigo.js"></script>
+<script type="text/javascript" src="/assets/racetrack.js"></script>
+<script type="text/javascript" src="/assets/config.js.dev"></script>
+<script type="text/javascript" src="/assets/handlebars-v4.0.5.js"></script>
 <title>Racetrack</title>
-<script type="text/javascript">
 
-    $('document').ready(function() {
-        console.log("hello there");
-
-
-        router = new Navigo(null, false);
-        
-        router.on("/queen", function() {
-            console.log("queeeeen");
-        });
-
-
-        router.on("/$", function() {
-            console.log("slashhhhh");
-        });
-
-        router.on(function() {
-            console.log("404");
-        });
-        router.resolve();
-
-
-        loadSeason(null, function(season) {
-            console.log("Loaded!");
-
-            var title = season["title"];
-            $("#season_name").html(title);
-
-            
-        });
-
-        console.log(RacetrackConfig)
-
-        $("#click_button").click(function() {
-
-            console.log("Bugtong rpessdd");
-
-
-
-        });
-    });
-
+<script id="main" type="text/x-handlebars-template">
+<h1>RPDR Feel The Fantasy League</h1>
+<h2 id="season_name">¡Season Name¡</h2>
 </script>
+
+<script id="edit-main" type="text/x-handlebars-template">
+    <h1>You are editing Dragrace</h1>
+    <h2>{{season_title}}</h2>
+
+    {{{bod}}}
+</script>
+
+<script id="edit-queens" type="text/x-handlebars-template">
+    <h1>queens</h1>
+    {{{new_queen}}}
+</script>
+
+<script id="new-queen" type="text/x-handlebars-template">
+<h4>New Queen:</h4>
+<form id="new-queen-form" action="destination.html">
+  <input id="name" type="text" value="Bob The Drag Queen">
+  <input type="submit" value="Create New Queen">
+</form>
+</script>
+
+<script id="queens-list" type="text/x-handlebars-template">
+<table>
+    <thead>
+        <th>Queen Name</th>
+    </thead>
+    <tbody>
+        {{#queens}}
+        <tr>
+            <td>{{name}}</td>
+            <td><button>delete</button></td>
+        </tr>
+        {{/users}}
+    </tbody>
+</table>
+</script>
+
 </head>
 <body>
 
-<h1>RPDR Feel The Fantasy League</h1>
-<h2 id="season_name">¡Season Name¡</h2>
-
-<button type="button" id="click_button">Go!</button>
-
-<div id="output">
-output...
+<div id="content">
+loading...
 </div>
+
+<button type="button" id="debug_button">Deubg</button>
 
 </body>
 </html>
