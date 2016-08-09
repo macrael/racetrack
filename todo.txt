@@ -15,8 +15,6 @@ x start putting things on redis
 * create new player
 
 
-
-
 UI
 ==
 
@@ -62,8 +60,17 @@ DATABASE
 
 
 
+TESTS I SHOULD HAVE CREATED
+===========================
+* post queen: starting in javascript, against a test server, verify that thing is create serverside, that 201 is returned. 
+	* needs to be able to run with build && run serer && test
+	* needs to reset database stuff in between, or start fresh
+* I kindof like the idea of testing the api consumer and the api together, then you just aren't testing the UI
+
+
+
 IN GENERAL
-----------
+==========
 * auto build/run server on save
 * something to hit the api server with
 * switch to a customized vim?
@@ -71,6 +78,7 @@ IN GENERAL
 * have some sort of wholistic client/server dev story
 
 * should be creating tests all the time
+	* The easier it is to create a broad test the better
 
 
 EDITOR
@@ -82,12 +90,6 @@ Spent too much time on
 ----------------------
 * routing
 
-
-TESTS I SHOULD HAVE CREATED
----------------------------
-* post queen: starting in javascript, against a test server, verify that thing is create serverside, that 201 is returned. 
-	* needs to be able to run with build && run serer && test
-	* needs to reset database stuff in between, or start fresh
 
 tech
 -----
