@@ -5,6 +5,7 @@ import "time"
 type Episode struct {
 	Number uint		`json:"number"`
 	Scores []Scored	`json:"scores"`
+	// summary?
 }
 
 type ScoreType struct {

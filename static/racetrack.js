@@ -11,41 +11,46 @@
 var TheSeason;
 
 function loadSeason(season_key, success) {
-	// !!dev vs. prod
-	console.log("loading season");
+    // !!dev vs. prod
+    console.log("loading season: " + season_key);
 
-	hostname = RacetrackConfig["server"];
-	if (season_key == null) {
-		season_key = "current";
-	}
-	path = "/api/seasons/" + season_key;
+    hostname = RacetrackConfig["server"];
+    if (season_key == null) {
+        season_key = "current";
+    }
+    path = "/api/seasons/" + season_key;
 
-	season_url = hostname + path;
+    season_url = hostname + path;
+    console.log("Get: " + season_url)
 
-	$.get(season_url, function(data) {
-		console.log("ewback");
-		console.log(data);
+    $.get(season_url, function(data) {
+        console.log("ewback");
+        console.log(data);
 
-		var season = JSON.parse(data);
+        var season = JSON.parse(data);
 
-		TheSeason = season
-		success(season)
-	});
+        TheSeason = season
+        CurrentViewLoader(season);
+        if (success) {
+            success(season);
+        }
+    });
 
 }
 
 function postQueen(queen, success) {
-	console.log("postQueen", queen);
+    console.log("postQueen", queen);
 
-	hostname = RacetrackConfig["server"];
-	season_key = TheSeason["key"]
-	path = "/api/seasons/" + season_key + "/queens"
+    hostname = RacetrackConfig["server"];
+    season_key = TheSeason["key"]
+    path = "/api/seasons/" + season_key + "/queens"
 
-	new_queen_url = hostname + path;
+    new_queen_url = hostname + path;
 
-	$.post(new_queen_url, JSON.stringify(queen), function() {
-		console.log("Finihed new Queen Post");
-	});
+    $.post(new_queen_url, JSON.stringify(queen), function() {
+        console.log("Finihed new Queen Post");
+        loadSeason(season_key)
+    });
 
 }
 
@@ -62,38 +67,51 @@ function loadEditView(season) {
 }
 
 function loadEditQueensView(season) {
-	console.log("loadEditQueens");
-	console.log(TheSeason)
+    console.log("loadEditQueens");
+    console.log(TheSeason)
 
-	var edit_main_template = Handlebars.compile($("#edit-main").html());
-	var edit_queens_template = Handlebars.compile($("#edit-queens").html());
-	var new_queen_template = Handlebars.compile($("#new-queen").html());
-	var queens_list_template = Handlebars.compile($("#queens-list").html());
+    var edit_main_template = Handlebars.compile($("#edit-main").html());
+    var edit_queens_template = Handlebars.compile($("#edit-queens").html());
+    var new_queen_template = Handlebars.compile($("#new-queen").html());
+    var queens_list_template = Handlebars.compile($("#queens-list").html());
 
-	var new_content = edit_main_template({season_title: TheSeason["title"], bod: edit_queens_template({new_queen: new_queen_template(), old_queens: queens_list_template({queens: TheSeason.queens})})});
+    var new_content = edit_main_template({season_title: TheSeason["title"], bod: edit_queens_template({new_queen: new_queen_template(), old_queens: queens_list_template({queens: TheSeason.queens})})});
 
-	$("#content").html(new_content);
-	$("#new-queen-form").submit(function(e) {
-		e.preventDefault();
-		console.log("SUBMIT");
-		var newQueen = {
-			name: $("input#name").val()
-		};
-		postQueen(newQueen);
+    $("#content").html(new_content);
+    $("#new-queen-form").submit(function(e) {
+        e.preventDefault();
+        console.log("SUBMIT");
+        var newQueen = {
+            name: $("input#name").val()
+        };
+        postQueen(newQueen);
 
-		//TODO: pull down new truth?...... really just need to add this queen to the list....
-	});
-	// hook up all the delete buttons
-	TheSeason.queens.forEach(function(queen, index) {
-		console.log(queen);
-		var del_key = "#DEL" + queen.key;
-		console.log(del_key);
-		console.log($(del_key));
-		$(del_key).click(function() {
-			console.log("DEL CLICK", queen.key);
+        //TODO: pull down new truth?...... really just need to add this queen to the list....
+    });
+    // hook up all the delete buttons
+    TheSeason.queens.forEach(function(queen, index) {
+        console.log(queen);
+        var del_key = "#DEL" + queen.key;
+        del_key = del_key.replace(/:/, '\\:');
+        console.log(del_key);
+        console.log($(del_key));
+        $(del_key).click(function() {
+            //TODO: make it a double-click situation.
+            hostname = RacetrackConfig["server"];
+            season_key = TheSeason["key"];
+            queen_url = "/api/seasons/" + season_key + "/queens/" + queen.key; //ugh, urls are the best ids,
 
-		});
-	});
+            $.ajax({
+                url: queen_url,
+                type: 'DELETE',
+                success: function(result) {
+                    // Do something with the result
+                    console.log("DELTEETED");
+                    loadSeason(season_key)
+                }
+            });
+        });
+    });
 
 }
 
@@ -124,11 +142,11 @@ function configureRouter() {
 
 
 function debugPress() {
-	console.log("debug press")
+    console.log("debug press")
 
-	var newQueen = {
-		"name": "Bob the Drag Queen"
-	}
+    var newQueen = {
+        "name": "Bob the Drag Queen"
+    }
 
 }
 
@@ -142,7 +160,7 @@ function main() {
 
         var title = season["title"];
         // $("#season_name").html(title);
-        CurrentViewLoader(season);
+        
         console.log("foot");
 
     });

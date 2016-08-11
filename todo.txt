@@ -10,16 +10,21 @@ x call that route with the downloaded thing
 
 x create new queen
 x list all queens
-* delete queen:: Ugh, apparently ":" in html id's mess up jquery
+x delete queen:: Ugh, apparently ":" in html id's mess up jquery // gotta escape them
+x have  view update on del/add
 
 * create new episode
+* add events to episodes
 * create new player
 
+* queens need images, at least. Players probably too.
 * create nav between different parts of main pages. 
-* dress up the UI
+* create the UI
 
 * setup remote git repository
 * push to heroku
+
+* move ids to be urls, until then we use redis keys for everything. 
 
 UI
 ==
@@ -36,6 +41,7 @@ EDIT:
 -----
 * add new episode
 	* add/remove scoreing from episode
+...
 * add new queen
 * add new pleb
 
@@ -46,6 +52,7 @@ BACKEND
 
 API
 ===
+# right now i'm using the key for the ID which actually seems pretty wrong. Should be using ID. But I wish that I had URLs for ids for everything, would save client time for sure. maybe I should just do this. 
 /seasons/:id
 /seasons/:id/plebs/:id
 /seasons/:id/queens/:id
@@ -99,9 +106,19 @@ IN GENERAL
 
 * I want to be able to see the body of every request, and the text of every db query
 
+THINGS I MISS FROM TESTBOT
+* URLS everywhere
+* auto errors
+* API infrastructure was so good. 
+
+
 EDITOR
 ------
 * auto add ";" to end of line and create new line. 
+* Pasting in code should indent correctly. That's annoying
+* Everything should be spaces all the time. 
+* Run lint on every save?
+* comments (maybe everything?) should wrap correctly. Not split words/punct.
 
 
 Spent too much time on

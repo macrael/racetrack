@@ -66,6 +66,7 @@ func main() {
 	// api.HandleFunc("/seasons/current", GetCurrentSeason)
 	api.HandleFunc("/seasons/{season_id}", GetSeason)
 	api.HandleFunc("/seasons/{season_id}/queens", PostQueen).Methods("POST")
+	api.HandleFunc("/seasons/{season_id}/queens/{queen_key}", DeleteQueen).Methods("DELETE")
 
 	r.PathPrefix("/assets").Handler(http.StripPrefix("/assets", http.FileServer(http.Dir("./static/"))))
 	
