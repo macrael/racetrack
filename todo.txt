@@ -40,7 +40,7 @@ Three tabs:
 EDIT:
 -----
 * add new episode
-	* add/remove scoreing from episode
+    * add/remove scoreing from episode
 ...
 * add new queen
 * add new pleb
@@ -64,8 +64,8 @@ API
 
 plebs and queens actually span seasons, so maybe drop that prefix, just have them all hang
 but maybe make an api that pulls down everything for a season since that should be everything. 
-	* if they are independent of seasons, the plebs still have the season specific "which are my queens" thing
-	* maybe this is premature optimization. There's still season specific stuff about all of them. 
+    * if they are independent of seasons, the plebs still have the season specific "which are my queens" thing
+    * maybe this is premature optimization. There's still season specific stuff about all of them. 
 
 
 DATABASE
@@ -76,19 +76,19 @@ DATABASE
 TESTS I SHOULD HAVE CREATED
 ===========================
 * post queen: starting in javascript, against a test server, verify that thing is create serverside, that 201 is returned. 
-	* needs to be able to run with build && run serer && test
-	* needs to reset database stuff in between, or start fresh
+    * needs to be able to run with build && run serer && test
+    * needs to reset database stuff in between, or start fresh
 * I kindof like the idea of testing the api consumer and the api together, then you just aren't testing the UI
 
 * In one test, should be able to:
-	* seed database
-	* run server?
-	* run my javascript code, make ajax request
-	* check database
-	* check returns 
-	* inspect request body
-	* inspect response body
-	* clear database
+    * seed database
+    * run server?
+    * run my javascript code, make ajax request
+    * check database
+    * check returns 
+    * inspect request body
+    * inspect response body
+    * clear database
 
 ==================================================
 ==================================================
@@ -102,7 +102,7 @@ IN GENERAL
 * have some sort of wholistic client/server dev story
 
 * should be creating tests all the time
-	* The easier it is to create a broad test the better
+    * The easier it is to create a broad test the better
 
 * I want to be able to see the body of every request, and the text of every db query
 
