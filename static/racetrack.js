@@ -81,7 +81,7 @@ function loadMainView(season) {
 }
 
 function loadEditEpisodesView(season) {
-
+    console.log("loading Episodes View");
 }
 
 function loadEditPlaysView(season) {

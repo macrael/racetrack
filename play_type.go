@@ -12,9 +12,9 @@ import (
 
 type PlayType struct {
     Key string                  `json:"key" redis:"-"`
-    SeasonKey string     `json:"season_key" redis:"season_key"`
-    Action string             `json:"action" redis:"action"` // e.g. Cries
-    Effect int                    `json:"effect" redis:"effect"` // +/- 5 pts. 
+    SeasonKey string            `json:"season_key" redis:"season_key"`
+    Action string               `json:"action" redis:"action"` // e.g. Cries
+    Effect int                  `json:"effect" redis:"effect"` // +/- 5 pts. 
 }
 
 func PostPlayType(w http.ResponseWriter, r *http.Request) {

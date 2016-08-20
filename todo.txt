@@ -12,8 +12,10 @@ x create new queen
 x list all queens
 x delete queen:: Ugh, apparently ":" in html id's mess up jquery // gotta escape them
 x have  view update on del/add
+x README
 
-* edit the list of possible events
+x edit the list of possible plays
+* refactor the redis stuff so that we arent repeating ourselves
 * create new episode
 
 * add events to episodes
@@ -28,6 +30,8 @@ x have  view update on del/add
 
 * move ids to be urls, until then we use redis keys for everything. 
 * embed the data in the first pull down so you don't have to hit the server 2x. 
+
+* theres slop in racetrack.js around the global TheSeason and trying to pass it around
 
 UI
 ==

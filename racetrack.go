@@ -63,7 +63,6 @@ func main() {
 
     api := r.PathPrefix("/api").Subrouter()
     api.HandleFunc("/seasons", GetSeasons)
-    // api.HandleFunc("/seasons/current", GetCurrentSeason)
     api.HandleFunc("/seasons/{season_id}", GetSeason)
     api.HandleFunc("/seasons/{season_id}/queens", PostQueen).Methods("POST")
     api.HandleFunc("/seasons/{season_id}/queens/{queen_key}", DeleteQueen).Methods("DELETE")
