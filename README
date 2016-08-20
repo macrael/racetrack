@@ -1,0 +1,18 @@
+RaceTrack is a small web app for running a RuPaul's DragRace Fantasy League
+
+Installation (full)
+1. Install go
+2. create a go workspace with bin/ pkg/ and src/github.com/macrael in it
+3. add "GOPATH=$HOME/..." to bash_profile
+4. git clone git@github.com:macrael/racetrack.git
+5. Install homebrew (ugh, piping a script to bash makes my skin crawl)
+6. `brew install redis`
+7. `redis-server /usr/local/etc/redis.conf`
+8. `redis-cli`: "set current_season_key 2016" // this is lame. make it auto-create
+9. go build && ./racetrack
+
+
+Admin:
+------
+http://localhost:8080/edit/queens
+http://localhost:8080/edit/play_types
