@@ -67,7 +67,7 @@ func DeletePlayType(w http.ResponseWriter, r *http.Request){
     }
     defer conn.Close()
 
-    season_key := mux.Vars(r)["season_id"] //TODO: Verify that the queen to be deleted belongs to this season
+    season_key := mux.Vars(r)["season_id"] //TODO: Verify that the play to be deleted belongs to this season
     play_type_key := mux.Vars(r)["play_type_key"]
 
     fmt.Println("DELTE Play: ", play_type_key)

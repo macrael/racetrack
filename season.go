@@ -16,10 +16,10 @@ type Season struct {
     Year int                `json:"year" redis:"year"`
     Title string            `json:"title" redis:"title"`
     
-    Queens []Queen             `json:"queens"`
-    Players []Player                `json:"players"`
-    PlayTypes []PlayType                       `json:"play_types"`
-    Episodes []Episode        `json:"episodes"`
+    Queens []Queen          `json:"queens"`
+    Players []Player        `json:"players"`
+    PlayTypes []PlayType    `json:"play_types"`
+    Episodes []Episode      `json:"episodes"`
 
 }
 
