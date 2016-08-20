@@ -29,7 +29,7 @@
 
 <script id="new-queen" type="text/x-handlebars-template">
 <h4>New Queen:</h4>
-<form id="new-queen-form" action="destination.html">
+<form id="new-queen-form">
   <input id="name" type="text" value="Bob The Drag Queen">
   <input type="submit" value="Create New Queen">
 </form>
@@ -38,7 +38,9 @@
 <script id="queens-list" type="text/x-handlebars-template">
 <table>
     <thead>
-        <th>Queen Name</th>
+        <tr>
+            <th>Queen Name</th>
+        </tr>
     </thead>
     <tbody>
         {{#each queens}}
@@ -48,6 +50,72 @@
         </tr>
         {{/each}}
     </tbody>
+</table>
+</script>
+
+
+<script id="edit-episodes" type="text/x-handlebars-template">
+<h3>Episodes</h3>
+{{{new_episode}}}
+<table>
+    <thead>
+        <tr>
+            <th> Ep #</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each episodes}}
+        <tr>
+            <td>{{number}}</td>
+            <td><button id="EDIT{{key}}">edit</button></td>
+            <td><button id="DEL{{key}}">delete</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+</script>
+
+<script id="new-episode" type="text/x-handlebars-template">
+<h4>New Ep:</h4>
+<form id="new-episode-form">
+  <input id="number" type="number" value="{{next_number}}">
+  <input type="submit" value="Create New Episode">
+</form>
+</script>
+
+
+<script id="edit-episode" type="text/x-handlebars-template">
+<h3>Episode {{number}}</h3>
+{{!-- and then some event options --}}
+</script>
+
+<script id="edit-play-types" type="text/x-handlebars-template">
+<h3>Possible Plays</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Action</th>
+            <th>Reaction</th>
+        </tr>
+    </thead>
+    <tbody>
+    {{#each play_types}}
+        <tr>
+            <td>{{action}}</td>
+            <td>{{effect}}</td>
+            <td><button id="DEL{{key}}">delete</button></td>
+        </tr>
+    {{/each}}
+        <tr>
+            <form id="new-play-type-form">
+                <td><input id="new-play-type-action" type="text" value="Crying"></td>
+                <td><input id="new-play-type-effect" type="number" value="-2"></td>
+                <td><input type="submit" value="New"></td>
+            </form>
+        </tr>
+    </tbody>
+    <p>{{error-msg}}</p>
 </table>
 </script>
 

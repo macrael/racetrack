@@ -16,3 +16,4 @@ type Player struct {
 func GetPlayers(w http.ResponseWriter, r *http.Request) {
     fmt.Println("HELLO PLayers")
 }
+

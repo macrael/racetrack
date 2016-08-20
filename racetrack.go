@@ -23,12 +23,12 @@ func dummySeason() Season {
     players := []Player{Player{"MacRae", "Come a little closer"}, Player{"Oscar", "The House Always Wins"}}
     s.Players = players
 
-    scoring := []ScoreType{}
-    cries := ScoreType{"cries", -2}
-    shade := ScoreType{"throws shade", 4}
+    scoring := []PlayType{}
+    cries := PlayType{"play_type:1", "season:2016", "cries", -2}
+    shade := PlayType{"play_type:2", "season:2016", "throws shade", 4}
     scoring = append(scoring, cries)
     scoring = append(scoring, shade)
-    s.ScoreTypes = scoring
+    s.PlayTypes = scoring
 
 
     one := Episode{}
@@ -67,6 +67,8 @@ func main() {
     api.HandleFunc("/seasons/{season_id}", GetSeason)
     api.HandleFunc("/seasons/{season_id}/queens", PostQueen).Methods("POST")
     api.HandleFunc("/seasons/{season_id}/queens/{queen_key}", DeleteQueen).Methods("DELETE")
+    api.HandleFunc("/seasons/{season_id}/play_types", PostPlayType).Methods("POST")
+    api.HandleFunc("/seasons/{season_id}/play_types/{play_type_key}", DeletePlayType).Methods("DELETE")
 
     r.PathPrefix("/assets").Handler(http.StripPrefix("/assets", http.FileServer(http.Dir("./static/"))))
     
@@ -75,6 +77,7 @@ func main() {
     r.HandleFunc("/queen", ServeIndex)
     r.HandleFunc("/edit", ServeIndex)
     r.HandleFunc("/edit/queens", ServeIndex)
+    r.HandleFunc("/edit/play_types", ServeIndex)
 
 
     fmt.Println("testing")

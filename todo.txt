@@ -13,11 +13,13 @@ x list all queens
 x delete queen:: Ugh, apparently ":" in html id's mess up jquery // gotta escape them
 x have  view update on del/add
 
+* edit the list of possible events
 * create new episode
+
 * add events to episodes
 * create new player
 
-* queens need images, at least. Players probably too.
+* queens need images, at least. Players (teams?) too.
 * create nav between different parts of main pages. 
 * create the UI
 
@@ -25,6 +27,7 @@ x have  view update on del/add
 * push to heroku
 
 * move ids to be urls, until then we use redis keys for everything. 
+* embed the data in the first pull down so you don't have to hit the server 2x. 
 
 UI
 ==

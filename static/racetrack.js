@@ -10,6 +10,8 @@
 
 var TheSeason;
 
+// !--- API -----
+
 function loadSeason(season_key, success) {
     // !!dev vs. prod
     console.log("loading season: " + season_key);
@@ -54,6 +56,22 @@ function postQueen(queen, success) {
 
 }
 
+function postPlayType(playType, success) {
+    console.log("postPlayType", playType);
+
+    hostname = RacetrackConfig["server"];
+    season_key = TheSeason["key"]
+    path = "/api/seasons/" + season_key + "/play_types"
+
+    new_play_type_url = hostname + path;
+
+    $.post(new_play_type_url, JSON.stringify(playType), function() {
+        console.log("Finihed new PlayType Post");
+        loadSeason(season_key)
+    });
+
+}
+
 // ---------- Routers ----------
 
 var CurrentViewLoader;
@@ -62,13 +80,59 @@ function loadMainView(season) {
 
 }
 
-function loadEditView(season) {
+function loadEditEpisodesView(season) {
+
+}
+
+function loadEditPlaysView(season) {
+    console.log("loading plays");
+
+    var edit_main_template = Handlebars.compile($("#edit-main").html());
+    var edit_play_types_template = Handlebars.compile($("#edit-play-types").html());
+
+    var new_content = edit_main_template({season_title: TheSeason["title"], 
+                                                                                          bod: edit_play_types_template({play_types: TheSeason["play_types"]})})
+
+    $("#content").html(new_content);
+    $("#new-play-type-form").submit(function(e) {
+        e.preventDefault();
+        console.log("SUBMITIT");
+        var newPlayType = {
+            action: $("#new-play-type-action").val(),
+            effect: Number($("#new-play-type-effect").val())
+        };
+        postPlayType(newPlayType);
+
+        //TODO: pull down new truth?...... really just need to add this queen to the list....
+    });
+
+    TheSeason.play_types.forEach(function(play_type, index) {
+        console.log(play_type);
+        var del_key = "#DEL" + play_type.key;
+        del_key = del_key.replace(/:/, '\\:');
+        $(del_key).click(function() {
+            //TODO: make it a double-click situation.
+            hostname = RacetrackConfig["server"];
+            season_key = TheSeason["key"];
+            play_type_url = "/api/seasons/" + season_key + "/play_types/" + play_type.key; //ugh, urls are the best ids,
+
+            $.ajax({
+                url: play_type_url,
+                type: 'DELETE',
+                success: function(result) {
+                    // Do something with the result
+                    console.log("DELTEETEDss");
+                    loadSeason(season_key)
+                }
+            });
+        });
+    });
 
 }
 
 function loadEditQueensView(season) {
     console.log("loadEditQueens");
-    console.log(TheSeason)
+    console.log(TheSeason);
 
     var edit_main_template = Handlebars.compile($("#edit-main").html());
     var edit_queens_template = Handlebars.compile($("#edit-queens").html());
@@ -93,8 +157,6 @@ function loadEditQueensView(season) {
         console.log(queen);
         var del_key = "#DEL" + queen.key;
         del_key = del_key.replace(/:/, '\\:');
-        console.log(del_key);
-        console.log($(del_key));
         $(del_key).click(function() {
             //TODO: make it a double-click situation.
             hostname = RacetrackConfig["server"];
@@ -125,9 +187,13 @@ function configureRouter() {
         console.log("EDITQ!");
         CurrentViewLoader = loadEditQueensView;
     });
+    router.on("/edit/play_types", function() {
+        console.log("EDITP!");
+        CurrentViewLoader = loadEditPlaysView;
+    });
     router.on("/edit", function() {
         console.log("EDIT");
-        CurrentViewLoader = loadEditView;
+        CurrentViewLoader = loadEditEpisodesView;
     });
     router.on("/queen", function() {
         console.log("queeeeen");

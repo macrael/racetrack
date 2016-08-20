@@ -8,13 +8,8 @@ type Episode struct {
     // summary?
 }
 
-type ScoreType struct {
-    Name string     `json:"name"` // e.g. Cries
-    Effect int      `json:"effect"` // +/- 5 pts. 
-}
-
 type Scored struct {
-    Queen *Queen            `json:"queen"`
-    ScoreType *ScoreType    `json:"sore_type"`
+    Queen *Queen                `json:"queen"`
+    PlayType *PlayType         `json:"play_type"`
     Timestamp time.Time     `json:"timestamp"`
 }

@@ -16,10 +16,10 @@ type Season struct {
     Year int                `json:"year" redis:"year"`
     Title string            `json:"title" redis:"title"`
     
-    Queens []Queen          `json:"queens"`
-    Players []Player        `json:"players"`
-    ScoreTypes []ScoreType  `json:"score_types"`
-    Episodes []Episode      `json:"episodes"`
+    Queens []Queen             `json:"queens"`
+    Players []Player                `json:"players"`
+    PlayTypes []PlayType                       `json:"play_types"`
+    Episodes []Episode        `json:"episodes"`
 
 }
 
@@ -59,6 +59,7 @@ func GetSeason(w http.ResponseWriter, r *http.Request) {
         return
     }
 
+    // Queens
     season_queens_key := fmt.Sprintf("%s:queens", season_key)
     queen_keys, err := redis.Strings(conn.Do("SMEMBERS", season_queens_key))
     if err != nil {
@@ -84,7 +85,34 @@ func GetSeason(w http.ResponseWriter, r *http.Request) {
         }
 
         season.Queens = append(season.Queens, queen)
+    }
 
+    // PlayTypes
+    season_play_types_key := fmt.Sprintf("%s:play_types", season_key)
+    play_type_keys, err := redis.Strings(conn.Do("SMEMBERS", season_play_types_key))
+    if err != nil {
+        fmt.Printf("ERR3", err)
+        return
+    }
+
+    season.PlayTypes = []PlayType{}
+    for _, play_type_key := range play_type_keys {
+        fmt.Println(play_type_key)
+        var play_type PlayType
+
+        play_type.Key = play_type_key
+        v, err := redis.Values(conn.Do("HGETALL", play_type_key))
+        if err != nil {
+            fmt.Printf("ERR11", err)
+            return
+        }
+        err = redis.ScanStruct(v, &play_type)
+        if err != nil {
+            fmt.Printf("ERR22", err)
+            return
+        }
+
+        season.PlayTypes = append(season.PlayTypes, play_type)
     }
 
     fmt.Println("No more")
