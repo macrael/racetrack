@@ -35,14 +35,14 @@ func dummySeason() Season {
     one.Number = 1
     scores := []Scored{}
     scores = append(scores, Scored{&bob, &cries, time.Now()})
-    one.Scores = scores
+    //one.Scores = scores
 
     two := Episode{}
     two.Number = 2
     scores = []Scored{}
     scores = append(scores, Scored{&bob, &shade, time.Now()})
     scores = append(scores, Scored{&chichi, &cries, time.Now()})
-    two.Scores = scores
+    //two.Scores = scores
 
     s.Episodes = []Episode{one, two}
 

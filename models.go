@@ -2,11 +2,6 @@ package main
 
 import "time"
 
-type Episode struct {
-    Number uint     `json:"number"`
-    Scores []Scored `json:"scores"`
-    // summary?
-}
 
 type Scored struct {
     Queen *Queen                `json:"queen"`
