@@ -33,6 +33,11 @@ x edit the list of possible plays
 
 * theres slop in racetrack.js around the global TheSeason and trying to pass it around
 
+Questions:
+----------
+Should I be starting the redis connnection on each request or have a global?
+
+
 UI
 ==
 
