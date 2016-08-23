@@ -56,10 +56,17 @@ func ServeIndex(w http.ResponseWriter, r *http.Request) {
     http.ServeFile(w, r, "./static/index.html")
 }
 
+func DebugCalled(w http.ResponseWriter, r *http.Request) {
+    fmt.Println("A debug call!")
+    fmt.Fprintf(w, "debug this")
+}
+
 func main() {
     fmt.Println("in main")
 
     r := mux.NewRouter().StrictSlash(true)
+
+    r.HandleFunc("/debug", DebugCalled)
 
     api := r.PathPrefix("/api").Subrouter()
     api.HandleFunc("/seasons", GetSeasons)
@@ -69,6 +76,9 @@ func main() {
     api.HandleFunc("/seasons/{season_id}/play_types", PostPlayType).Methods("POST")
     api.HandleFunc("/seasons/{season_id}/play_types/{play_type_key}", DeletePlayType).Methods("DELETE")
 
+    api.HandleFunc("/seasons/{season_id}/episodes", PostEpisode).Methods("POST")
+    api.HandleFunc("/seasons/{season_id}/episodes/{episode_key}", DeleteEpisode).Methods("DELETE")
+
     r.PathPrefix("/assets").Handler(http.StripPrefix("/assets", http.FileServer(http.Dir("./static/"))))
     
     // Serve our single page site to any valid url
@@ -77,6 +87,8 @@ func main() {
     r.HandleFunc("/edit", ServeIndex)
     r.HandleFunc("/edit/queens", ServeIndex)
     r.HandleFunc("/edit/play_types", ServeIndex)
+    r.HandleFunc("/edit/episodes", ServeIndex)
+    r.HandleFunc("/edit/episodes/{episode_id}", ServeIndex)
 
 
     fmt.Println("testing")

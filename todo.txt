@@ -16,9 +16,13 @@ x README
 
 x edit the list of possible plays
 * refactor the redis stuff so that we arent repeating ourselves
+    * still repeaty in get season
+* refactor actions so we don't have to loop in js for that.
 * create new episode
+    * we know how many episodes there will be, (and when they air?) we could just show the next one? or something?
 
 * add events to episodes
+    * QUEEN did WHAT?
 * create new player
 
 * queens need images, at least. Players (teams?) too.
@@ -32,6 +36,7 @@ x edit the list of possible plays
 * embed the data in the first pull down so you don't have to hit the server 2x. 
 
 * theres slop in racetrack.js around the global TheSeason and trying to pass it around
+* nice 404 page? rendered in the single page, probably...
 
 Questions:
 ----------

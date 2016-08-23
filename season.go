@@ -115,6 +115,34 @@ func GetSeason(w http.ResponseWriter, r *http.Request) {
         season.PlayTypes = append(season.PlayTypes, play_type)
     }
 
+    // Episodes
+    season_episodes_key := fmt.Sprintf("%s:episodes", season_key)
+    episode_keys, err := redis.Strings(conn.Do("SMEMBERS", season_episodes_key))
+    if err != nil {
+        fmt.Printf("ERR3", err)
+        return
+    }
+
+    season.Episodes = []Episode{}
+    for _, episode_key := range episode_keys {
+        fmt.Println(episode_key)
+        var episode Episode
+
+        episode.Key = episode_key
+        v, err := redis.Values(conn.Do("HGETALL", episode_key))
+        if err != nil {
+            fmt.Printf("ERR11", err)
+            return
+        }
+        err = redis.ScanStruct(v, &episode)
+        if err != nil {
+            fmt.Printf("ERR22", err)
+            return
+        }
+
+        season.Episodes = append(season.Episodes, episode)
+    }
+
     fmt.Println("No more")
 
     json, _ := json.MarshalIndent(season, "", "    ")

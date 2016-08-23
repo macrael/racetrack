@@ -60,7 +60,7 @@
 <table>
     <thead>
         <tr>
-            <th> Ep #</th>
+            <th>Ep #</th>
         </tr>
     </thead>
     <tbody>
@@ -79,7 +79,7 @@
 <script id="new-episode" type="text/x-handlebars-template">
 <h4>New Ep:</h4>
 <form id="new-episode-form">
-  <input id="number" type="number" value="{{next_number}}">
+  <input id="new-episode-number" type="number" value="{{next_number}}">
   <input type="submit" value="Create New Episode">
 </form>
 </script>
@@ -87,7 +87,7 @@
 
 <script id="edit-episode" type="text/x-handlebars-template">
 <h3>Episode {{number}}</h3>
-{{!-- and then some event options --}}
+
 </script>
 
 <script id="edit-play-types" type="text/x-handlebars-template">
