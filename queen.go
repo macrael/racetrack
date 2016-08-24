@@ -26,7 +26,7 @@ func PostQueen(w http.ResponseWriter, r *http.Request) {
     season_key := mux.Vars(r)["season_id"]
     new_queen.SeasonKey = season_key
 
-    success := AddObject(season_key, "queen", new_queen)
+    success := AddObject("queen", new_queen)
     if success {
         fmt.Fprintf(w, "201 Created")
     } else {
@@ -36,12 +36,23 @@ func PostQueen(w http.ResponseWriter, r *http.Request) {
 }
 
 func DeleteQueen(w http.ResponseWriter, r *http.Request) {
-    season_key := mux.Vars(r)["season_id"] //TODO: Verify that the queen to be deleted belongs to this season
+    season_key := mux.Vars(r)["season_id"]
     queen_key := mux.Vars(r)["queen_key"]
 
     fmt.Println("DELTE QUEN: ", queen_key)
 
-    success := DeleteObject(season_key, "queen", queen_key)
+    var del_queen Queen
+    del_queen.Key = queen_key
+    success := GetObject(queen_key, &del_queen)
+    fmt.Println("GOT QUEEN: ", del_queen)
+    if (season_key != del_queen.SeasonKey) {
+        fmt.Println("Hey, you are trying todelerte a queen that doesn't belong here.")
+        success = false
+    }
+
+    if (success) {
+        success = DeleteObject("queen", queen_key, del_queen)
+    }
 
     if (success) {
         fmt.Fprintf(w, "200 OK (deleted)")

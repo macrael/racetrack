@@ -26,7 +26,7 @@ func PostEpisode(w http.ResponseWriter, r *http.Request) {
     season_key := mux.Vars(r)["season_id"]
     new_episode.SeasonKey = season_key
 
-    success := AddObject(season_key, "episode", new_episode)
+    success := AddObject("episode", new_episode)
     if success {
         fmt.Fprintf(w, "201 Created")
     } else {
@@ -41,7 +41,18 @@ func DeleteEpisode(w http.ResponseWriter, r *http.Request) {
 
     fmt.Println("DELTE EPI: ", episode_key)
 
-    success := DeleteObject(season_key, "episode", episode_key)
+    var del_episode Episode
+    del_episode.Key = episode_key
+    success := GetObject(episode_key, &del_episode)
+    fmt.Println("GOT QUEEN: ", del_episode)
+    if (season_key != del_episode.SeasonKey) {
+        fmt.Println("Hey, you are trying todelerte a episode that doesn't belong here.")
+        success = false
+    }
+
+    if (success) {
+        success = DeleteObject("episode", episode_key, del_episode)
+    }
 
     if (success) {
         fmt.Fprintf(w, "200 OK (deleted)")

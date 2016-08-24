@@ -51,7 +51,6 @@ function postQueen(queen, success) {
 
     $.post(new_queen_url, JSON.stringify(queen), function() {
         console.log("Finihed new Queen Post");
-        //loadSeason(season_key)
         Router.reresolve();
         console.log("Did queen");
     });
@@ -69,7 +68,6 @@ function postPlayType(playType, success) {
 
     $.post(new_play_type_url, JSON.stringify(playType), function() {
         console.log("Finihed new PlayType Post");
-        //loadSeason(season_key)
         Router.reresolve();
     });
 
@@ -86,11 +84,28 @@ function postEpisode(episode, success) {
 
     $.post(new_episode_url, JSON.stringify(episode), function() {
         console.log("Finihed new Episode Post");
-        //loadSeason(season_key)
         Router.reresolve();
     });
 
 }
+
+
+function postPlay(play) {
+    console.log("postplay:", play);
+    
+    hostname = RacetrackConfig["server"];
+    season_key = TheSeason["key"]
+    path = "/api/seasons/" + season_key + "/plays";
+
+    new_play_url = hostname + path;
+    
+    $.post(new_play_url, JSON.stringify(play), function() {
+        console.log("Finihed new Play");
+        Router.reresolve();
+    });
+
+}
+
 // ---------- Routers ----------
 
 var CurrentViewLoader;
@@ -165,14 +180,66 @@ function loadEditEpisodeView(season, episode_key) {
 
     var edit_main_template = Handlebars.compile($("#edit-main").html());
     var edit_episode_template = Handlebars.compile($("#edit-episode").html());
+    var new_play_template = Handlebars.compile($("#new-play").html());
 
     var episode = season.episodes.find(function(ep) { return ep.key === episode_key });
     console.log("TheIP: ", episode);
 
+
+    var selected_queen = season.queens.find(function(queen) { return queen.selected });
+    var selected_play_type = season.play_types.find(function(play_type) { return play_type.selected });
+
     var edit_episode = edit_main_template({season_title: season["title"],
-        bod: edit_episode_template({number: episode.number})});
+        bod: edit_episode_template({number: episode.number,
+        new_play: new_play_template({queens: season.queens, 
+                                    play_types: season.play_types,
+                                    create_enabled: (selected_queen && selected_play_type)})
+        })});
 
     $("#content").html(edit_episode);
+
+    season.queens.forEach(function(queen, index) {
+        var queen_button = "#QU" + queen.key;
+        queen_button = queen_button.replace(/:/, '\\:');
+        $(queen_button).click(function() {
+            console.log("clicked Queen");
+            season.queens.forEach(function(clear_queen, index) {
+                if (clear_queen === queen) {
+                    clear_queen.selected = !clear_queen.selected;
+                } else {
+                    clear_queen.selected = false;
+                }
+            });
+            loadEditEpisodeView(season, episode_key);
+        });
+    });
+
+    season.play_types.forEach(function(play_type, index) {
+        var play_type_button = "#PT" + play_type.key;
+        play_type_button = play_type_button.replace(/:/, '\\:');
+        $(play_type_button).click(function() {
+            console.log("clicked PlatTye");
+            season.play_types.forEach(function(clear_play_type, index) {
+                if (clear_play_type === play_type) {
+                    clear_play_type.selected = !clear_play_type.selected;
+                } else {
+                    clear_play_type.selected = false;
+                }
+            });
+            loadEditEpisodeView(season, episode_key);
+        });
+    });
+    
+    // setup the submit button
+    $("#add-play").click(function() {
+        console.log("submitting");
+        var new_play = {
+            queen_key: selected_queen.key,
+            play_type_key: selected_play_type.key,
+            episode_key: episode.key
+        };
+        postPlay(new_play);
+    });
     
 }
 
@@ -273,7 +340,7 @@ function loadEditQueensView(season) {
 
 function configureRouter() {
     Router = new Navigo(null, false);
-    Router.reresolve = function() { // HACK
+    Router.reresolve = function() { // HACK, poor man's react
         this._lastRouteResolved = null;
         this.resolve();
     }

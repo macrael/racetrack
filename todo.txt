@@ -17,8 +17,8 @@ x README
 x edit the list of possible plays
 * refactor the redis stuff so that we arent repeating ourselves
     * still repeaty in get season
-* refactor actions so we don't have to loop in js for that.
-* create new episode
+* refactor adding actions so it's not as complex
+x create new episode
     * we know how many episodes there will be, (and when they air?) we could just show the next one? or something?
 
 * add events to episodes
@@ -34,9 +34,11 @@ x edit the list of possible plays
 
 * move ids to be urls, until then we use redis keys for everything. 
 * embed the data in the first pull down so you don't have to hit the server 2x. 
+* gofmt
 
 * theres slop in racetrack.js around the global TheSeason and trying to pass it around
 * nice 404 page? rendered in the single page, probably...
+* set up a season the first time you get going. 
 
 Questions:
 ----------

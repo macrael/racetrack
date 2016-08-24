@@ -8,7 +8,8 @@ Installation (full)
 5. Install homebrew (ugh, piping a script to bash makes my skin crawl)
 6. `brew install redis`
 7. `redis-server /usr/local/etc/redis.conf`
-8. `redis-cli`: "set current_season_key 2016" // this is lame. make it auto-create
+8. `redis-cli`: "set current_season_key season:2016" // this is lame. make it auto-create -- err, make creating a new season the first thing you do...
+9. `redis-cli`: -- create the season....
 9. go build && ./racetrack
 
 

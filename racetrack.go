@@ -32,17 +32,19 @@ func dummySeason() Season {
 
 
     one := Episode{}
+    one.Key = "episode:1"
     one.Number = 1
-    scores := []Scored{}
-    scores = append(scores, Scored{&bob, &cries, time.Now()})
-    //one.Scores = scores
+    plays := []Play{}
+    plays = append(plays, Play{"play:2", "season:2016", bob.Key, cries.Key, one.Key, time.Now()})
+    //one.Scores = plays
 
     two := Episode{}
+    two.Key = "episode:3"
     two.Number = 2
-    scores = []Scored{}
-    scores = append(scores, Scored{&bob, &shade, time.Now()})
-    scores = append(scores, Scored{&chichi, &cries, time.Now()})
-    //two.Scores = scores
+    plays = []Play{}
+    plays = append(plays, Play{"play:3", "season:2016", bob.Key, shade.Key, two.Key, time.Now()})
+    plays = append(plays, Play{"play:4", "season:2016", chichi.Key, shade.Key, two.Key, time.Now()})
+    //two.Scores = plays
 
     s.Episodes = []Episode{one, two}
 
@@ -79,9 +81,12 @@ func main() {
     api.HandleFunc("/seasons/{season_id}/episodes", PostEpisode).Methods("POST")
     api.HandleFunc("/seasons/{season_id}/episodes/{episode_key}", DeleteEpisode).Methods("DELETE")
 
+    api.HandleFunc("/seasons/{season_id}/plays", PostPlay).Methods("POST")
+    //api.HandleFunc("/seasons/{season_id}/plays/{play_key}", DeletePlay).Methods("DELETE")
+
     r.PathPrefix("/assets").Handler(http.StripPrefix("/assets", http.FileServer(http.Dir("./static/"))))
     
-    // Serve our single page site to any valid url
+    // Serve our single page site to any valid url // and really, maybe any non-api url, let 404 be handled by the app. 
     r.HandleFunc("/", ServeIndex)
     r.HandleFunc("/queen", ServeIndex)
     r.HandleFunc("/edit", ServeIndex)

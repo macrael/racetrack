@@ -7,6 +7,7 @@
 <script type="text/javascript" src="/assets/racetrack.js"></script>
 <script type="text/javascript" src="/assets/config.js.dev"></script>
 <script type="text/javascript" src="/assets/handlebars-v4.0.5.js"></script>
+<link rel="stylesheet" type="text/css" href="/assets/racetrack.css">
 <title>Racetrack</title>
 
 <script id="main" type="text/x-handlebars-template">
@@ -87,6 +88,27 @@
 
 <script id="edit-episode" type="text/x-handlebars-template">
 <h3>Episode {{number}}</h3>
+
+{{{plays}}}
+
+{{{new_play}}}
+
+</script>
+
+<script id="new-play" type="text/x-handlebars-template">
+
+<ul class="queen-list">
+{{#each queens}}
+<li><button id="QU{{key}}" class="play-queen {{#if selected}}selected{{/if}}">{{name}}</button></li>
+{{/each}}
+</ul>
+<hr>
+<ul class="play-list">
+{{#each play_types}}
+<li><button id="PT{{key}}" class="play-type {{#if selected}}selected{{/if}}">{{action}}</button></li>
+{{/each}}
+</ul>
+<button id="add-play" class="" {{#if create_enabled}}{{else}}disabled{{/if}}>Oh No She Didn&apos;t!</button>
 
 </script>
 
