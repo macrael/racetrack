@@ -82,7 +82,7 @@ func main() {
     api.HandleFunc("/seasons/{season_id}/episodes/{episode_key}", DeleteEpisode).Methods("DELETE")
 
     api.HandleFunc("/seasons/{season_id}/plays", PostPlay).Methods("POST")
-    //api.HandleFunc("/seasons/{season_id}/plays/{play_key}", DeletePlay).Methods("DELETE")
+    api.HandleFunc("/seasons/{season_id}/plays/{play_key}", DeletePlay).Methods("DELETE")
 
     r.PathPrefix("/assets").Handler(http.StripPrefix("/assets", http.FileServer(http.Dir("./static/"))))
     

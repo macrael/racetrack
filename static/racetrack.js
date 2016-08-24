@@ -240,6 +240,29 @@ function loadEditEpisodeView(season, episode_key) {
             loadEditEpisodeView(season, episode_key);
         });
     });
+
+    plays.forEach(function(play, index) {
+        var del_key = "#DEL" + play.key;
+        del_key = del_key.replace(/:/, '\\:');
+        $(del_key).click(function() {
+            //TODO: make it a double-click situation. -- could just alert
+            hostname = RacetrackConfig["server"];
+            season_key = TheSeason["key"];
+            play_url = "/api/seasons/" + season_key + "/plays/" + play.key; //ugh, urls are the best ids,
+
+            $.ajax({
+                url: play_url,
+                type: 'DELETE',
+                success: function(result) {
+                    // Do something with the result
+                    console.log("DELTEETEDpee");
+                    //loadSeason(season_key)
+                    Router.reresolve();
+                }
+            });
+        });
+
+    });
     
     // setup the submit button
     $("#add-play").click(function() {
