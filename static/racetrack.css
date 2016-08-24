@@ -2,6 +2,34 @@ body {
     background-color: lightgreen;
 }
 
+button.picker {
+    border-width: 2px;
+    border-color: black;
+    background-color: pink;
+    border-style: solid;
+    
+    font-size: 18px;
+}
+
 button.selected {
-    background-color: lightgreen;
+    background-color: white;
+}
+
+button#add-play {
+    background-color: #ffff66;
+}
+
+button#add-play:disabled {
+    background-color: lightgray;
+    border-color: gray gray;
+    border-right-color: gray;
+}
+
+ul.button-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul.button-list li {
+    display: inline-block;
 }

@@ -89,13 +89,8 @@
 <script id="edit-episode" type="text/x-handlebars-template">
 <h3>Episode {{number}}</h3>
 
-<table>
 {{#each plays}}
-<tr>
-    <td>{{queen.name}}</td>
-    <td>{{play_type.action}}</td>
-    <td><button id="DEL{{key}}">delete</button></td>
-</tr>
+    <div class="queen-did">{{queen.name}} {{play_type.action}} <button id="DEL{{key}}">delete</button></div>
 {{/each}}
 </table>
 
@@ -105,18 +100,18 @@
 
 <script id="new-play" type="text/x-handlebars-template">
 
-<ul class="queen-list">
+<ul class="queen-list button-list">
 {{#each queens}}
-<li><button id="QU{{key}}" class="play-queen {{#if selected}}selected{{/if}}">{{name}}</button></li>
+<li><button id="QU{{key}}" class="picker{{#if selected}} selected{{/if}}">{{name}}</button></li>
 {{/each}}
 </ul>
 <hr>
-<ul class="play-list">
+<ul class="play-list button-list">
 {{#each play_types}}
-<li><button id="PT{{key}}" class="play-type {{#if selected}}selected{{/if}}">{{action}}</button></li>
+<li><button id="PT{{key}}" class="picker{{#if selected}} selected{{/if}}">{{action}}</button></li>
 {{/each}}
 </ul>
-<button id="add-play" class="" {{#if create_enabled}}{{else}}disabled{{/if}}>Oh No She Didn&apos;t!</button>
+<button id="add-play" class="picker" {{#if create_enabled}}{{else}}disabled{{/if}}>Oh No She Didn&apos;t!</button>
 
 </script>
 

@@ -15,21 +15,24 @@ x have  view update on del/add
 x README
 
 x edit the list of possible plays
-* refactor the redis stuff so that we arent repeating ourselves
-    * still repeaty in get season
-* refactor adding actions so it's not as complex
 x create new episode
     * we know how many episodes there will be, (and when they air?) we could just show the next one? or something?
 
-* add events to episodes
-    * QUEEN did WHAT?
-* create new player
+x add events to episodes
+    x QUEEN did WHAT?
+* Players
+* calculate scores
 
 * queens need images, at least. Players (teams?) too.
 * create nav between different parts of main pages. 
 * create the UI
 
-* setup remote git repository
+* refactor the redis stuff so that we arent repeating ourselves
+    * still repeaty in get season
+* refactor adding actions so it's not as complex
+    * refactor adding delete buttons
+
+x setup remote git repository
 * push to heroku
 
 * move ids to be urls, until then we use redis keys for everything. 
