@@ -16,7 +16,7 @@ type Play struct {
     QueenKey string             `json:"queen_key" redis:"queen_key"`
     PlayTypeKey string          `json:"play_type_key" redis:"play_type_key"`
     EpisodeKey string           `json:"episode_key" redis:"episode_key"`
-    Timestamp time.Time         `json:"timestamp" redis:"timestamp"`
+    Timestamp int64             `json:"timestamp" redis:"timestamp"`
 }
 
 func PostPlay(w http.ResponseWriter, r *http.Request) {
@@ -30,7 +30,7 @@ func PostPlay(w http.ResponseWriter, r *http.Request) {
 
     season_key := mux.Vars(r)["season_id"]
     new_play.SeasonKey = season_key
-    new_play.Timestamp = time.Now()
+    new_play.Timestamp = time.Now().Unix()
 
     success := AddObject("play", new_play)
     if success {

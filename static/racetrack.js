@@ -185,15 +185,26 @@ function loadEditEpisodeView(season, episode_key) {
     var episode = season.episodes.find(function(ep) { return ep.key === episode_key });
     console.log("TheIP: ", episode);
 
+    var plays = season.plays.filter(function(play) { return play.episode_key === episode.key });
+    plays = plays.sort(function(a,b) { return a.timestamp - b.timestamp});
+
+    // attach the queen and play_type
+    plays.forEach(function(play) {
+        play.queen = season.queens.find(function(queen) { return queen.key === play.queen_key });
+        play.play_type = season.play_types.find(function(play_type) { return play_type.key === play.play_type_key });
+    });
+
+    console.log("PLAYS: ", plays);
 
     var selected_queen = season.queens.find(function(queen) { return queen.selected });
     var selected_play_type = season.play_types.find(function(play_type) { return play_type.selected });
 
     var edit_episode = edit_main_template({season_title: season["title"],
         bod: edit_episode_template({number: episode.number,
-        new_play: new_play_template({queens: season.queens, 
-                                    play_types: season.play_types,
-                                    create_enabled: (selected_queen && selected_play_type)})
+            plays: plays,
+            new_play: new_play_template({queens: season.queens, 
+                                         play_types: season.play_types,
+                                         create_enabled: (selected_queen && selected_play_type)})
         })});
 
     $("#content").html(edit_episode);

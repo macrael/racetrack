@@ -2,3 +2,6 @@ body {
     background-color: lightgreen;
 }
 
+button.selected {
+    background-color: lightgreen;
+}

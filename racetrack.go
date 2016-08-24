@@ -35,15 +35,15 @@ func dummySeason() Season {
     one.Key = "episode:1"
     one.Number = 1
     plays := []Play{}
-    plays = append(plays, Play{"play:2", "season:2016", bob.Key, cries.Key, one.Key, time.Now()})
+    plays = append(plays, Play{"play:2", "season:2016", bob.Key, cries.Key, one.Key, time.Now().Unix()})
     //one.Scores = plays
 
     two := Episode{}
     two.Key = "episode:3"
     two.Number = 2
     plays = []Play{}
-    plays = append(plays, Play{"play:3", "season:2016", bob.Key, shade.Key, two.Key, time.Now()})
-    plays = append(plays, Play{"play:4", "season:2016", chichi.Key, shade.Key, two.Key, time.Now()})
+    plays = append(plays, Play{"play:3", "season:2016", bob.Key, shade.Key, two.Key, time.Now().Unix()})
+    plays = append(plays, Play{"play:4", "season:2016", chichi.Key, shade.Key, two.Key, time.Now().Unix()})
     //two.Scores = plays
 
     s.Episodes = []Episode{one, two}

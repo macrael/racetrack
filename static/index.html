@@ -89,7 +89,14 @@
 <script id="edit-episode" type="text/x-handlebars-template">
 <h3>Episode {{number}}</h3>
 
-{{{plays}}}
+<table>
+{{#each plays}}
+<tr>
+    <td>{{queen.name}}</td>
+    <td>{{play_type.action}}</td>
+</tr>
+{{/each}}
+</table>
 
 {{{new_play}}}
 

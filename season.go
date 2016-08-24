@@ -20,6 +20,7 @@ type Season struct {
     Players []Player        `json:"players"`
     PlayTypes []PlayType    `json:"play_types"`
     Episodes []Episode      `json:"episodes"`
+    Plays []Play            `json:"plays"` // TODO: should this be hanging off everything?
 
 }
 
@@ -142,6 +143,35 @@ func GetSeason(w http.ResponseWriter, r *http.Request) {
 
         season.Episodes = append(season.Episodes, episode)
     }
+
+    // Plays
+    season_plays_key := fmt.Sprintf("%s:plays", season_key)
+    play_keys, err := redis.Strings(conn.Do("SMEMBERS", season_plays_key))
+    if err != nil {
+        fmt.Printf("ERR3", err)
+        return
+    }
+
+    season.Plays = []Play{}
+    for _, play_key := range play_keys {
+        fmt.Println(play_key)
+        var play Play
+
+        play.Key = play_key
+        v, err := redis.Values(conn.Do("HGETALL", play_key))
+        if err != nil {
+            fmt.Printf("ERR1", err)
+            return
+        }
+        err = redis.ScanStruct(v, &play)
+        if err != nil {
+            fmt.Printf("ERR2", err)
+            return
+        }
+
+        season.Plays = append(season.Plays, play)
+    }
+    
 
     fmt.Println("No more")
 
