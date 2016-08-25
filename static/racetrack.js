@@ -17,16 +17,14 @@ function loadSeason(season_key, success) {
     // !!dev vs. prod
     console.log("loading season: " + season_key);
 
-    hostname = RacetrackConfig["server"];
     if (season_key == null) {
         season_key = "current";
     }
     path = "/api/seasons/" + season_key;
 
-    season_url = hostname + path;
-    console.log("Get: " + season_url)
+    console.log("Get: " + path)
 
-    $.get(season_url, function(data) {
+    $.get(path, function(data) {
         console.log("ewback");
         console.log(data);
 
@@ -43,13 +41,10 @@ function loadSeason(season_key, success) {
 function postQueen(queen, success) {
     console.log("postQueen", queen);
 
-    hostname = RacetrackConfig["server"];
     season_key = TheSeason["key"]
     path = "/api/seasons/" + season_key + "/queens"
 
-    new_queen_url = hostname + path;
-
-    $.post(new_queen_url, JSON.stringify(queen), function() {
+    $.post(path, JSON.stringify(queen), function() {
         console.log("Finihed new Queen Post");
         Router.reresolve();
         console.log("Did queen");
@@ -60,13 +55,10 @@ function postQueen(queen, success) {
 function postPlayer(player, success) {
     console.log("postPlayer", player);
 
-    hostname = RacetrackConfig["server"];
     season_key = TheSeason["key"]
     path = "/api/seasons/" + season_key + "/players"
 
-    new_player_url = hostname + path;
-
-    $.post(new_player_url, JSON.stringify(player), function() {
+    $.post(path, JSON.stringify(player), function() {
         console.log("Finihed new Player Post");
         Router.reresolve();
         console.log("Did player");
@@ -76,13 +68,10 @@ function postPlayer(player, success) {
 function postPlayType(playType, success) {
     console.log("postPlayType", playType);
 
-    hostname = RacetrackConfig["server"];
     season_key = TheSeason["key"]
     path = "/api/seasons/" + season_key + "/play_types"
 
-    new_play_type_url = hostname + path;
-
-    $.post(new_play_type_url, JSON.stringify(playType), function() {
+    $.post(path, JSON.stringify(playType), function() {
         console.log("Finihed new PlayType Post");
         Router.reresolve();
     });
@@ -92,13 +81,10 @@ function postPlayType(playType, success) {
 function postEpisode(episode, success) {
     console.log("postEpisode", episode);
 
-    hostname = RacetrackConfig["server"];
     season_key = TheSeason["key"]
     path = "/api/seasons/" + season_key + "/episodes"
 
-    new_episode_url = hostname + path;
-
-    $.post(new_episode_url, JSON.stringify(episode), function() {
+    $.post(path, JSON.stringify(episode), function() {
         console.log("Finihed new Episode Post");
         Router.reresolve();
     });
@@ -109,13 +95,10 @@ function postEpisode(episode, success) {
 function postPlay(play) {
     console.log("postplay:", play);
     
-    hostname = RacetrackConfig["server"];
     season_key = TheSeason["key"]
     path = "/api/seasons/" + season_key + "/plays";
 
-    new_play_url = hostname + path;
-    
-    $.post(new_play_url, JSON.stringify(play), function() {
+    $.post(path, JSON.stringify(play), function() {
         console.log("Finihed new Play");
         Router.reresolve();
     });
@@ -164,12 +147,11 @@ function loadEditEpisodesView(season) {
         del_key = del_key.replace(/:/, '\\:');
         $(del_key).click(function() {
             //TODO: make it a double-click situation. -- could just alert
-            hostname = RacetrackConfig["server"];
             season_key = TheSeason["key"];
-            episode_url = "/api/seasons/" + season_key + "/episodes/" + episode.key; //ugh, urls are the best ids,
+            episode_path = "/api/seasons/" + season_key + "/episodes/" + episode.key; //ugh, urls are the best ids,
 
             $.ajax({
-                url: episode_url,
+                url: episode_path,
                 type: 'DELETE',
                 success: function(result) {
                     // Do something with the result
@@ -263,12 +245,11 @@ function loadEditEpisodeView(season, episode_key) {
         del_key = del_key.replace(/:/, '\\:');
         $(del_key).click(function() {
             //TODO: make it a double-click situation. -- could just alert
-            hostname = RacetrackConfig["server"];
             season_key = TheSeason["key"];
-            play_url = "/api/seasons/" + season_key + "/plays/" + play.key; //ugh, urls are the best ids,
+            play_path = "/api/seasons/" + season_key + "/plays/" + play.key; //ugh, urls are the best ids,
 
             $.ajax({
-                url: play_url,
+                url: play_path,
                 type: 'DELETE',
                 success: function(result) {
                     // Do something with the result
@@ -322,12 +303,11 @@ function loadEditPlaysView(season) {
         del_key = del_key.replace(/:/, '\\:');
         $(del_key).click(function() {
             //TODO: make it a double-click situation.
-            hostname = RacetrackConfig["server"];
             season_key = TheSeason["key"];
-            play_type_url = "/api/seasons/" + season_key + "/play_types/" + play_type.key; //ugh, urls are the best ids,
+            play_type_path = "/api/seasons/" + season_key + "/play_types/" + play_type.key; //ugh, urls are the best ids,
 
             $.ajax({
-                url: play_type_url,
+                url: play_type_path,
                 type: 'DELETE',
                 success: function(result) {
                     // Do something with the result
@@ -370,12 +350,11 @@ function loadEditQueensView(season) {
         del_key = del_key.replace(/:/, '\\:');
         $(del_key).click(function() {
             //TODO: make it a double-click situation.
-            hostname = RacetrackConfig["server"];
             season_key = TheSeason["key"];
-            queen_url = "/api/seasons/" + season_key + "/queens/" + queen.key; //ugh, urls are the best ids,
+            queen_path = "/api/seasons/" + season_key + "/queens/" + queen.key; //ugh, urls are the best ids,
 
             $.ajax({
-                url: queen_url,
+                url: queen_path,
                 type: 'DELETE',
                 success: function(result) {
                     // Do something with the result
@@ -476,12 +455,11 @@ function loadEditPlayersView(season, extra_data) {
         del_key = del_key.replace(/:/, '\\:');
         $(del_key).click(function() {
             //TODO: make it a double-click situation.
-            hostname = RacetrackConfig["server"];
             season_key = TheSeason["key"];
-            player_url = "/api/seasons/" + season_key + "/players/" + player.key; //ugh, urls are the best ids,
+            player_path = "/api/seasons/" + season_key + "/players/" + player.key; //ugh, urls are the best ids,
 
             $.ajax({
-                url: player_url,
+                url: player_path,
                 type: 'DELETE',
                 success: function(result) {
                     // Do something with the result
@@ -574,8 +552,7 @@ function debugPress() {
     var newQueen = {
         "name": "Bob the Drag Queen"
     }
-    hostname = RacetrackConfig["server"];
-    $.get(hostname + "/debug", function(data) {
+    $.get("/debug", function(data) {
         console.log(data);
     });
 
@@ -587,8 +564,6 @@ function main() {
 
     configureRouter();
     Router.resolve();
-
-    console.log(RacetrackConfig)
 }
 
 $('document').ready(main);

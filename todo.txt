@@ -25,9 +25,13 @@ x after submitting a new play, scroll to the bottom so the UI is in view
 x godeps
 * Heroku
     x need a proc file
-    * need to handle dev/prod correctly   
+    x need to handle dev/prod correctly   
         * gonna get env variables, use that to write the config file for static?
-        * got to do redis right, should I have a global conn instead of per-call?
+            * drop the config file, should just be using realative paths
+        x got to do redis right, should I have a global conn instead of per-call?
+        * provision redis
+        * use a one-off to configure the season
+        * PUSH
 * calculate scores
 
 * in edit-episode, make the history have alternating hilighted rows

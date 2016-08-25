@@ -3,9 +3,7 @@ package main
 import (
     "os"
     "fmt"
-    "strings"
     "net/http"
-    "io/ioutil"
 
     "github.com/gorilla/mux"
 )
@@ -20,26 +18,10 @@ func DebugCalled(w http.ResponseWriter, r *http.Request) {
     fmt.Fprintf(w, "debug this")
 }
 
-func configureStaticConfig(url string) {
-    fmt.Println("Pointing the frontend at ", url)
-    config_dat, err := ioutil.ReadFile("./config.js.prototype")
-    if err != nil {
-        fmt.Println("Couldn't read the config.p, the front end is going to be borked")
-    }
-    
-    config := string(config_dat)
-    config = strings.Replace(config, "{{server}}", url, 1)
-    err = ioutil.WriteFile("./static/config.js", []byte(config), 0644)
-    
-}
-
 func main() {
     fmt.Println("in main")
 
     port := os.Getenv("PORT")
-    hostname, _ := os.Hostname()
-    url := "http://" + hostname + ":" + port
-    configureStaticConfig(url)
 
     r := mux.NewRouter().StrictSlash(true)
 
