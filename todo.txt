@@ -16,23 +16,23 @@ x README
 
 x edit the list of possible plays
 x create new episode
-    * we know how many episodes there will be, (and when they air?) we could just show the next one? or something?
 
 x add events to episodes
     x QUEEN did WHAT?
 x Players
 x after submitting a new play, scroll to the bottom so the UI is in view
 x godeps
-* Heroku
+x Heroku
     x need a proc file
     x need to handle dev/prod correctly   
         * gonna get env variables, use that to write the config file for static?
             * drop the config file, should just be using realative paths
         x got to do redis right, should I have a global conn instead of per-call?
-        * provision redis
-        * use a one-off to configure the season
-        * PUSH
+        x provision redis
+        x use a one-off to configure the season
+        x PUSH
 * calculate scores
+* Put the plays and queens in order at least.
 
 * in edit-episode, make the history have alternating hilighted rows
 * solve the bin-packing problem
@@ -47,8 +47,6 @@ x godeps
 * refactor js views into separate files
     * things that don't depend on one another should be easy to split.
 
-x setup remote git repository
-
 * queens need images, at least. Players (teams?) too.
 * move ids to be urls, until then we use redis keys for everything. 
 * embed the data in the first pull down so you don't have to hit the server 2x. 
@@ -58,6 +56,7 @@ x setup remote git repository
     * just need to take it out of the PostWhatever methods
 * nice 404 page? rendered in the single page, probably...
 * set up a season the first time you get going. 
+* we know how many episodes there will be, (and when they air?) we could just show the next one? or something?
 
 Questions:
 ----------
@@ -129,6 +128,8 @@ TESTS I SHOULD HAVE CREATED
     * inspect request body
     * inspect response body
     * clear database
+
+* I made 2 mistakes where I copy pasta'd the wrong thing in the wrong place.
 
 ==================================================
 ==================================================

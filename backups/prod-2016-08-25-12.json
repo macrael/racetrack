@@ -1,0 +1,183 @@
+{
+    "key": "season:2016",
+    "year": 2016,
+    "title": "All Stars Season 2",
+    "queens": [
+        {
+            "key": "queen:2",
+            "season_key": "season:2016",
+            "name": "Adore Delano"
+        },
+        {
+            "key": "queen:4",
+            "season_key": "season:2016",
+            "name": "Alyssa Edwards"
+        },
+        {
+            "key": "queen:8",
+            "season_key": "season:2016",
+            "name": "Katya"
+        },
+        {
+            "key": "queen:7",
+            "season_key": "season:2016",
+            "name": "Ginger Minj"
+        },
+        {
+            "key": "queen:3",
+            "season_key": "season:2016",
+            "name": "Alaska"
+        },
+        {
+            "key": "queen:6",
+            "season_key": "season:2016",
+            "name": "Detox"
+        },
+        {
+            "key": "queen:9",
+            "season_key": "season:2016",
+            "name": "Phi Phi O'Hara"
+        },
+        {
+            "key": "queen:10",
+            "season_key": "season:2016",
+            "name": "Roxxxy Andrews"
+        },
+        {
+            "key": "queen:5",
+            "season_key": "season:2016",
+            "name": "Coco Montrese"
+        },
+        {
+            "key": "queen:11",
+            "season_key": "season:2016",
+            "name": "Tatianna"
+        }
+    ],
+    "players": [
+        {
+            "key": "player:1",
+            "season_key": "season:2016",
+            "name": "MacRae",
+            "team_name": "Bitch, That's Meth!",
+            "queen_keys": [
+                "queen:8",
+                "queen:2",
+                "queen:10"
+            ],
+            "winner_key": "queen:8"
+        }
+    ],
+    "play_types": [
+        {
+            "key": "play_type:12",
+            "season_key": "season:2016",
+            "action": "had her look judged",
+            "effect": -3
+        },
+        {
+            "key": "play_type:19",
+            "season_key": "season:2016",
+            "action": "was in the bottom three",
+            "effect": 2
+        },
+        {
+            "key": "play_type:15",
+            "season_key": "season:2016",
+            "action": "won the lip sync",
+            "effect": 10
+        },
+        {
+            "key": "play_type:2",
+            "season_key": "season:2016",
+            "action": "popped her tongue",
+            "effect": 2
+        },
+        {
+            "key": "play_type:9",
+            "season_key": "season:2016",
+            "action": "was picked last",
+            "effect": -2
+        },
+        {
+            "key": "play_type:3",
+            "season_key": "season:2016",
+            "action": "said \"bitch\"",
+            "effect": 2
+        },
+        {
+            "key": "play_type:16",
+            "season_key": "season:2016",
+            "action": "was in the top two",
+            "effect": 6
+        },
+        {
+            "key": "play_type:1",
+            "season_key": "season:2016",
+            "action": "said \"fierce\"",
+            "effect": 2
+        },
+        {
+            "key": "play_type:8",
+            "season_key": "season:2016",
+            "action": "did a death drop",
+            "effect": 5
+        },
+        {
+            "key": "play_type:18",
+            "season_key": "season:2016",
+            "action": "is safe",
+            "effect": 4
+        },
+        {
+            "key": "play_type:13",
+            "season_key": "season:2016",
+            "action": "took off her wig",
+            "effect": -3
+        },
+        {
+            "key": "play_type:14",
+            "season_key": "season:2016",
+            "action": "won a mini challenge",
+            "effect": 5
+        },
+        {
+            "key": "play_type:6",
+            "season_key": "season:2016",
+            "action": "helped a sister out",
+            "effect": 3
+        },
+        {
+            "key": "play_type:7",
+            "season_key": "season:2016",
+            "action": "got into an argument",
+            "effect": 5
+        },
+        {
+            "key": "play_type:10",
+            "season_key": "season:2016",
+            "action": "cried.",
+            "effect": -2
+        },
+        {
+            "key": "play_type:4",
+            "season_key": "season:2016",
+            "action": "confessed",
+            "effect": 3
+        },
+        {
+            "key": "play_type:20",
+            "season_key": "season:2016",
+            "action": "was eliminated",
+            "effect": 0
+        }
+    ],
+    "episodes": [
+        {
+            "key": "episode:1",
+            "season_key": "season:2016",
+            "number": 1
+        }
+    ],
+    "plays": []
+}
