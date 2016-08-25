@@ -1,6 +1,7 @@
 package main
 
 import (
+    "os"
     "fmt"
     "reflect"
     "regexp"
@@ -16,7 +17,7 @@ func GetObject(object_key string, object interface{}) bool {
         return false
     }
 
-    conn, err := redis.Dial("tcp", ":6379")
+    conn, err := redis.Dial("tcp", os.Getenv("REDIS_URL"))
     if err != nil {
         fmt.Println("ERRORED CONNECTING")
         return false
@@ -41,7 +42,7 @@ func GetObject(object_key string, object interface{}) bool {
 
 // TODO: actually return something different on err
 func AddObject(object_name string, object interface{}) (string, bool) {
-    conn, err := redis.Dial("tcp", ":6379")
+    conn, err := redis.Dial("tcp", os.Getenv("REDIS_URL"))
     if err != nil {
         fmt.Println("ERRORED CONNECTING")
         return "", false
@@ -98,7 +99,7 @@ func AddObject(object_name string, object interface{}) (string, bool) {
 }
 
 func DeleteObject(object_name string, object_key string, object interface{}) bool {
-    conn, err := redis.Dial("tcp", ":6379")
+    conn, err := redis.Dial("tcp", os.Getenv("REDIS_URL"))
     if err != nil {
         fmt.Println("ERRORED CONNECTING")
         return false

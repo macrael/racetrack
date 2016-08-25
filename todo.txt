@@ -20,11 +20,18 @@ x create new episode
 
 x add events to episodes
     x QUEEN did WHAT?
-* Players
+x Players
+x after submitting a new play, scroll to the bottom so the UI is in view
+x godeps
+* Heroku
+    x need a proc file
+    * need to handle dev/prod correctly   
+        * gonna get env variables, use that to write the config file for static?
+        * got to do redis right, should I have a global conn instead of per-call?
 * calculate scores
 
-* after submitting a new play, scroll to the bottom so the UI is in view
-* queens need images, at least. Players (teams?) too.
+* in edit-episode, make the history have alternating hilighted rows
+* solve the bin-packing problem
 * create nav between different parts of main pages. 
 * create the UI
 
@@ -32,22 +39,27 @@ x add events to episodes
     * still repeaty in get season
 * refactor adding actions so it's not as complex
     * refactor adding delete buttons
+    * very repeaty in js.
+* refactor js views into separate files
+    * things that don't depend on one another should be easy to split.
 
 x setup remote git repository
-* push to heroku
 
+* queens need images, at least. Players (teams?) too.
 * move ids to be urls, until then we use redis keys for everything. 
 * embed the data in the first pull down so you don't have to hit the server 2x. 
 * gofmt
 
 * theres slop in racetrack.js around the global TheSeason and trying to pass it around
+    * just need to take it out of the PostWhatever methods
 * nice 404 page? rendered in the single page, probably...
 * set up a season the first time you get going. 
 
 Questions:
 ----------
-Should I be starting the redis connnection on each request or have a global?
-
+* Should I be starting the redis connnection on each request or have a global?
+* What's the standard way to get the front end to do the right thing?
+    * duh, don't hard code the hotsname, just to relative paths...
 
 UI
 ==
@@ -67,6 +79,7 @@ EDIT:
 ...
 * add new queen
 * add new pleb
+* add new play_type
 
 
 BACKEND
@@ -140,7 +153,7 @@ EDITOR
 * auto add ";" to end of line and create new line. 
 * Pasting in code should indent correctly. That's annoying
 * Everything should be spaces all the time. 
-* Run lint on every save?
+* Run lint on every save? -- gofmt
 * comments (maybe everything?) should wrap correctly. Not split words/punct.
 
 

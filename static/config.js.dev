@@ -1,3 +1,0 @@
-var RacetrackConfig = {
-    "server": "http://localhost:8080"
-}

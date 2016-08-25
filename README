@@ -10,7 +10,8 @@ Installation (full)
 7. `redis-server /usr/local/etc/redis.conf`
 8. `redis-cli`: "set current_season_key season:2016" // this is lame. make it auto-create -- err, make creating a new season the first thing you do...
 9. `redis-cli`: -- create the season....
-9. go build && ./racetrack
+10. echo REDIS_URL="localhost:6379" >> .env
+11. go build && ./racetrack || go install && heroku local
 
 
 Admin:

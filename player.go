@@ -1,6 +1,7 @@
 package main
 
 import (
+    "os"
     "fmt"
     "net/http"
     "encoding/json"
@@ -36,7 +37,7 @@ func PostPlayer(w http.ResponseWriter, r *http.Request) {
     new_player.Key = new_player_key
 
     if (success) {
-        conn, err := redis.Dial("tcp", ":6379")
+        conn, err := redis.Dial("tcp", os.Getenv("REDIS_URL"))
         if err != nil {
             fmt.Println("ERRORED CONNECTING")
             success = false
@@ -83,7 +84,7 @@ func DeletePlayer(w http.ResponseWriter, r *http.Request) {
     if (success) {
         success = DeleteObject("player", player_key, del_player)
         if (success) {
-            conn, err := redis.Dial("tcp", ":6379")
+            conn, err := redis.Dial("tcp", os.Getenv("REDIS_URL"))
             if err != nil {
                 fmt.Println("ERRORED CONNECTING")
                 success = false

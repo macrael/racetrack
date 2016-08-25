@@ -2,4 +2,7 @@ dump.rdb
 racetrack
 
 *.swp
+.env
+
+static/config.js
 
