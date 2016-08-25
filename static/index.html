@@ -111,8 +111,7 @@
 <li><button id="PT{{key}}" class="picker{{#if selected}} selected{{/if}}">{{action}}</button></li>
 {{/each}}
 </ul>
-<button id="add-play" class="picker" {{#if create_enabled}}{{else}}disabled{{/if}}>Oh No She Didn&apos;t!</button>
-
+<button id="add-play" class="picker" {{#if create_enabled}}{{else}}disabled{{/if}}>Oh No She Didn&rsquo;t!</button>
 </script>
 
 <script id="edit-play-types" type="text/x-handlebars-template">
@@ -143,6 +142,55 @@
     <p>{{error-msg}}</p>
 </table>
 </script>
+
+<script id="edit-players" type="text/x-handlebars-template">
+    <h1>players</h1>
+    {{{new_player}}}
+    {{{old_players}}}
+</script>
+
+<script id="new-player" type="text/x-handlebars-template">
+<h4>New Player:</h4>
+<form id="new-player-form">
+    <input id="player-name" type="text" value="{{player_name}}">
+    <input id="team-name" type="text" value="{{player_team}}">
+
+    <ul class="button-list">
+    {{#each queens}}
+        <li><button id="QU{{key}}" class="picker{{#if selected}} selected{{/if}}">{{name}}</button></li>
+    {{/each}}
+    </ul>
+
+    <div>Winner: <ul class="button-list">
+    {{#each selected_queens}}
+        <li><button id="SQ{{key}}" class="picker{{#if winner}} selected{{/if}}">{{name}}</button></li>
+    {{/each}}
+    </ul></div>
+
+    <input type="submit" value="Add Player" {{#if create_enabled}}{{else}}disabled{{/if}}>
+</form>
+</script>
+
+<script id="players-list" type="text/x-handlebars-template">
+<table>
+    <thead>
+        <tr>
+            <th>Player Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each players}}
+        <tr>
+            <td>{{name}}</td>
+            <td>{{team_name}}</td>
+            <td><button id="DEL{{key}}">delete</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+</script>
+
+
 
 </head>
 <body>

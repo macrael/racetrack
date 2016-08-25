@@ -32,7 +32,7 @@ func PostPlay(w http.ResponseWriter, r *http.Request) {
     new_play.SeasonKey = season_key
     new_play.Timestamp = time.Now().Unix()
 
-    success := AddObject("play", new_play)
+    _, success := AddObject("play", new_play)
     if success {
         fmt.Fprintf(w, "201 Created")
     } else {

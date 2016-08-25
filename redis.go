@@ -40,18 +40,18 @@ func GetObject(object_key string, object interface{}) bool {
 }
 
 // TODO: actually return something different on err
-func AddObject(object_name string, object interface{}) bool {
+func AddObject(object_name string, object interface{}) (string, bool) {
     conn, err := redis.Dial("tcp", ":6379")
     if err != nil {
         fmt.Println("ERRORED CONNECTING")
-        return false
+        return "", false
     }
     defer conn.Close()
 
     new_object_id, err := conn.Do("INCR", fmt.Sprintf("new_%v_id", object_name))
     if err != nil {
         fmt.Println("ERR getting INCR key", err)
-        return false
+        return "", false
     }
     new_object_key := fmt.Sprintf("%v:%v", object_name, new_object_id)
     fmt.Println("Got a new key:", new_object_key)
@@ -61,7 +61,7 @@ func AddObject(object_name string, object interface{}) bool {
     _, err = conn.Do("HMSET", args...)
     if err != nil {
         fmt.Println("no set new obj", err)
-        return false
+        return "", false
     }
 
     // Reflectively add all things that end with Key to their matching babies.
@@ -73,8 +73,14 @@ func AddObject(object_name string, object interface{}) bool {
     for i := 0; i < v.NumField(); i++ {
         ft := t.Field(i)
         fv := v.Field(i)
+        fmt.Println("HIHIHI: ", string(ft.Tag.Get("belongs_to")))
 
-        if (key_regex.MatchString(ft.Name)) {
+        belongs_to_tag := ft.Tag.Get("belongs_to")
+        // not sure what to do with this tag besides using it to squash.
+        // probably, replace object_name with something else. 
+        squash := string(belongs_to_tag) == "-"
+
+        if (key_regex.MatchString(ft.Name) && !squash) {
             belongs_to_key := fmt.Sprintf("%s:%ss", fv.Interface(), object_name)
             fmt.Println("ActualBelongtoKey: ", belongs_to_key)
 
@@ -82,16 +88,13 @@ func AddObject(object_name string, object interface{}) bool {
             if err != nil {
                 fmt.Println("didn't add to set", err)
                 // this is where we should roll back, roll it ALL back
-                return false
+                return "", false
             }
-
-
         }
-
     }
     fmt.Println("well that was reflective")
 
-    return true
+    return new_object_key, true
 }
 
 func DeleteObject(object_name string, object_key string, object interface{}) bool {
@@ -116,8 +119,13 @@ func DeleteObject(object_name string, object_key string, object interface{}) boo
     for i := 0; i < v.NumField(); i++ {
         ft := t.Field(i)
         fv := v.Field(i)
+        
+        belongs_to_tag := ft.Tag.Get("belongs_to")
+        // not sure what to do with this tag besides using it to squash.
+        // probably, replace object_name with something else. 
+        squash := string(belongs_to_tag) == "-"
 
-        if (key_regex.MatchString(ft.Name)) {
+        if (key_regex.MatchString(ft.Name) && !squash) {
             belongs_to_key := fmt.Sprintf("%s:%ss", fv.Interface(), object_name)
             fmt.Println("ActualBelongtoKey: ", belongs_to_key)
 

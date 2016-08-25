@@ -27,7 +27,7 @@ func PostPlayType(w http.ResponseWriter, r *http.Request) {
     season_key := mux.Vars(r)["season_id"]
     new_play_type.SeasonKey = season_key
 
-    success := AddObject("play_type", new_play_type)
+    _, success := AddObject("play_type", new_play_type)
     if success {
         fmt.Fprintf(w, "201 Created")
     } else {

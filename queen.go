@@ -26,7 +26,7 @@ func PostQueen(w http.ResponseWriter, r *http.Request) {
     season_key := mux.Vars(r)["season_id"]
     new_queen.SeasonKey = season_key
 
-    success := AddObject("queen", new_queen)
+    _, success := AddObject("queen", new_queen)
     if success {
         fmt.Fprintf(w, "201 Created")
     } else {

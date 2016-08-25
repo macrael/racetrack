@@ -26,7 +26,7 @@ func PostEpisode(w http.ResponseWriter, r *http.Request) {
     season_key := mux.Vars(r)["season_id"]
     new_episode.SeasonKey = season_key
 
-    success := AddObject("episode", new_episode)
+    _, success := AddObject("episode", new_episode)
     if success {
         fmt.Fprintf(w, "201 Created")
     } else {

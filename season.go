@@ -171,6 +171,43 @@ func GetSeason(w http.ResponseWriter, r *http.Request) {
 
         season.Plays = append(season.Plays, play)
     }
+
+    // Players
+    season_players_key := fmt.Sprintf("%s:players", season_key)
+    player_keys, err := redis.Strings(conn.Do("SMEMBERS", season_players_key))
+    if err != nil {
+        fmt.Printf("ERR3", err)
+        return
+    }
+
+    season.Players = []Player{}
+    for _, player_key := range player_keys {
+        fmt.Println(player_key)
+        var player Player
+
+        player.Key = player_key
+        v, err := redis.Values(conn.Do("HGETALL", player_key))
+        if err != nil {
+            fmt.Printf("ERR1", err)
+            return
+        }
+        err = redis.ScanStruct(v, &player)
+        if err != nil {
+            fmt.Printf("ERR2", err)
+            return
+        }
+
+        // Players gotta be special, get those queen keys out.
+        player_queens_key := fmt.Sprintf("%s:queens", player.Key)
+        fmt.Println("gettting qs from ", player_queens_key)
+        player.QueenKeys, err = redis.Strings(conn.Do("SMEMBERS", player_queens_key))
+        if err != nil {
+            fmt.Println("we didn't get queens back for this player", err)
+            return
+        }
+
+        season.Players = append(season.Players, player)
+    }
     
 
     fmt.Println("No more")

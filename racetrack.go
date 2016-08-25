@@ -2,56 +2,10 @@ package main
 
 import (
     "fmt"
-    "time"
     "net/http"
 
     "github.com/gorilla/mux"
 )
-
-func dummySeason() Season {
-    s := Season{}
-    s.Key = "season:2016"
-    s.Year = 2016
-    s.Title = "The one Bob wins"
-
-    bob := Queen{"12", "season:2016", "Bob the drag queen"}
-    chichi := Queen{"13", "season:2016", "Chi chi"}
-
-    queens := []Queen{bob, chichi}
-    s.Queens = queens
-
-    players := []Player{Player{"MacRae", "Come a little closer"}, Player{"Oscar", "The House Always Wins"}}
-    s.Players = players
-
-    scoring := []PlayType{}
-    cries := PlayType{"play_type:1", "season:2016", "cries", -2}
-    shade := PlayType{"play_type:2", "season:2016", "throws shade", 4}
-    scoring = append(scoring, cries)
-    scoring = append(scoring, shade)
-    s.PlayTypes = scoring
-
-
-    one := Episode{}
-    one.Key = "episode:1"
-    one.Number = 1
-    plays := []Play{}
-    plays = append(plays, Play{"play:2", "season:2016", bob.Key, cries.Key, one.Key, time.Now().Unix()})
-    //one.Scores = plays
-
-    two := Episode{}
-    two.Key = "episode:3"
-    two.Number = 2
-    plays = []Play{}
-    plays = append(plays, Play{"play:3", "season:2016", bob.Key, shade.Key, two.Key, time.Now().Unix()})
-    plays = append(plays, Play{"play:4", "season:2016", chichi.Key, shade.Key, two.Key, time.Now().Unix()})
-    //two.Scores = plays
-
-    s.Episodes = []Episode{one, two}
-
-    return s
-}
-
-
 
 func ServeIndex(w http.ResponseWriter, r *http.Request) {
     fmt.Println("Have the site. ")
@@ -84,6 +38,9 @@ func main() {
     api.HandleFunc("/seasons/{season_id}/plays", PostPlay).Methods("POST")
     api.HandleFunc("/seasons/{season_id}/plays/{play_key}", DeletePlay).Methods("DELETE")
 
+    api.HandleFunc("/seasons/{season_id}/players", PostPlayer).Methods("POST")
+    api.HandleFunc("/seasons/{season_id}/players/{player_key}", DeletePlayer).Methods("DELETE")
+
     r.PathPrefix("/assets").Handler(http.StripPrefix("/assets", http.FileServer(http.Dir("./static/"))))
     
     // Serve our single page site to any valid url // and really, maybe any non-api url, let 404 be handled by the app. 
@@ -94,15 +51,11 @@ func main() {
     r.HandleFunc("/edit/play_types", ServeIndex)
     r.HandleFunc("/edit/episodes", ServeIndex)
     r.HandleFunc("/edit/episodes/{episode_id}", ServeIndex)
+    r.HandleFunc("/edit/players", ServeIndex)
 
 
     fmt.Println("testing")
 
-    s := dummySeason()
-    Seasons = []Season{s}
-    fmt.Println(s)
-
-    // http.Handle("/", r)
     http.ListenAndServe(":8080", r)
 
 }

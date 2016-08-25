@@ -23,6 +23,7 @@ x add events to episodes
 * Players
 * calculate scores
 
+* after submitting a new play, scroll to the bottom so the UI is in view
 * queens need images, at least. Players (teams?) too.
 * create nav between different parts of main pages. 
 * create the UI
