@@ -1,7 +1,6 @@
 package main
 
 import (
-    "os"
     "fmt"
     "net/http"
     "encoding/json"
@@ -32,7 +31,9 @@ func GetSeasons(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetSeason(w http.ResponseWriter, r *http.Request) {
-    conn, err := redis.Dial("tcp", os.Getenv("REDIS_URL"))
+    fmt.Println("Getting that season")
+    conn, err := Connect()
+    fmt.Println("Connected for sure: ", conn)
     if err != nil {
         fmt.Println("FIRST ERRORED CONNECTING", err)
         return

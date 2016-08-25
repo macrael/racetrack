@@ -3,8 +3,10 @@ package main
 import (
     "os"
     "fmt"
-    "reflect"
     "regexp"
+    "net/url"
+	"strings"
+    "reflect"
 
     "github.com/garyburd/redigo/redis"
 )
@@ -17,7 +19,7 @@ func GetObject(object_key string, object interface{}) bool {
         return false
     }
 
-    conn, err := redis.Dial("tcp", os.Getenv("REDIS_URL"))
+    conn, err := Connect()
     if err != nil {
         fmt.Println("ERRORED CONNECTING")
         return false
@@ -42,7 +44,7 @@ func GetObject(object_key string, object interface{}) bool {
 
 // TODO: actually return something different on err
 func AddObject(object_name string, object interface{}) (string, bool) {
-    conn, err := redis.Dial("tcp", os.Getenv("REDIS_URL"))
+    conn, err := Connect()
     if err != nil {
         fmt.Println("ERRORED CONNECTING")
         return "", false
@@ -99,7 +101,7 @@ func AddObject(object_name string, object interface{}) (string, bool) {
 }
 
 func DeleteObject(object_name string, object_key string, object interface{}) bool {
-    conn, err := redis.Dial("tcp", os.Getenv("REDIS_URL"))
+    conn, err := Connect()
     if err != nil {
         fmt.Println("ERRORED CONNECTING")
         return false
@@ -140,4 +142,49 @@ func DeleteObject(object_name string, object_key string, object interface{}) boo
     }
     
     return true
+}
+
+
+// these two functions lifted from https://github.com/soveran/redisurl/blob/master/redisurl.go
+func Connect() (redis.Conn, error) {
+	return ConnectToURL(os.Getenv("REDIS_URL"))
+}
+
+func ConnectToURL(s string) (c redis.Conn, err error) {
+	redisURL, err := url.Parse(s)
+
+	if err != nil {
+		return
+	}
+
+	auth := ""
+
+	if redisURL.User != nil {
+		if password, ok := redisURL.User.Password(); ok {
+			auth = password
+		}
+	}
+
+	c, err = redis.Dial("tcp", redisURL.Host)
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	if len(auth) > 0 {
+		_, err = c.Do("AUTH", auth)
+
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+	}
+
+	if len(redisURL.Path) > 1 {
+		db := strings.TrimPrefix(redisURL.Path, "/")
+		c.Do("SELECT", db)
+	}
+    fmt.Println("Connected?")
+	return
 }

@@ -1,4 +1,5 @@
 RaceTrack is a small web app for running a RuPaul's DragRace Fantasy League
+RaceTrack is deployed on Heroku
 
 Installation (full)
 1. Install go
@@ -10,11 +11,25 @@ Installation (full)
 7. `redis-server /usr/local/etc/redis.conf`
 8. `redis-cli`: "set current_season_key season:2016" // this is lame. make it auto-create -- err, make creating a new season the first thing you do...
 9. `redis-cli`: -- create the season....
-10. echo REDIS_URL="localhost:6379" >> .env
-11. go build && ./racetrack || go install && heroku local
+10. echo REDIS_URL="redis://localhost:6379" >> .env
+11. go build && ./racetrack
 
+
+Deployment (from scratch)
+----------
+1. install heroku-cli
+2. heroku login
+3. heroku local ... ^c
+4. heroku git:remote -a [fantasyspeedway]
+5. heroku addons:create heroku-redis:hobby-dev # warning, this is not persisted
+6. heroku redis:cli --confirm [fantasyspeedway] # really? no security for the CLI?
+7. `HMSET season:2016 year 2016 title "All Stars Season 2"`
+8. `SET current_season_key season:2016`
+9. git push heroku master
 
 Admin:
 ------
+http://localhost:8080/edit
 http://localhost:8080/edit/queens
 http://localhost:8080/edit/play_types
+http://localhost:8080/edit/players
