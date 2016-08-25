@@ -1,7 +1,8 @@
 RaceTrack is a small web app for running a RuPaul's DragRace Fantasy League
-RaceTrack is deployed on Heroku
+RaceTrack is deployed on Heroku at fantasyspeedway.heroku.com
 
 Installation (full)
+-------------------
 1. Install go
 2. create a go workspace with bin/ pkg/ and src/github.com/macrael in it
 3. add "export GOPATH=$HOME/..." to bash_profile
@@ -19,13 +20,18 @@ Deployment (from scratch)
 ----------
 1. install heroku-cli
 2. heroku login
-3. heroku local ... ^c
+3. go install && heroku local ... ^c
 4. heroku git:remote -a [fantasyspeedway]
 5. heroku addons:create heroku-redis:hobby-dev # warning, this is not persisted
 6. heroku redis:cli --confirm [fantasyspeedway] # really? no security for the CLI?
 7. `HMSET season:2016 year 2016 title "All Stars Season 2"`
 8. `SET current_season_key season:2016`
 9. git push heroku master
+
+Backup:
+-------
+curl http://localhost:5000/api/seasons/current > backups/dev-xxxx-xx-xx-xx-xx.json
+curl http://fantasyspeedway.herokuapp.com/api/seasons/current > backups/prod-xxxx-xx-xx-xx-xx.json
 
 Admin:
 ------

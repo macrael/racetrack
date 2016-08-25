@@ -1,0 +1,280 @@
+{
+    "key": "2016",
+    "year": 0,
+    "title": "",
+    "queens": [
+        {
+            "key": "queen:30",
+            "season_key": "2016",
+            "name": "Phi Phi"
+        },
+        {
+            "key": "queen:24",
+            "season_key": "2016",
+            "name": "Alaska"
+        },
+        {
+            "key": "queen:25",
+            "season_key": "2016",
+            "name": "Alyssa"
+        },
+        {
+            "key": "queen:28",
+            "season_key": "2016",
+            "name": "Ginger Minj"
+        },
+        {
+            "key": "queen:26",
+            "season_key": "2016",
+            "name": "Coco"
+        },
+        {
+            "key": "queen:29",
+            "season_key": "2016",
+            "name": "Katya"
+        },
+        {
+            "key": "queen:32",
+            "season_key": "2016",
+            "name": "Tatianna"
+        },
+        {
+            "key": "queen:23",
+            "season_key": "2016",
+            "name": "Adore"
+        },
+        {
+            "key": "queen:31",
+            "season_key": "2016",
+            "name": "Roxxxy"
+        },
+        {
+            "key": "queen:27",
+            "season_key": "2016",
+            "name": "Detox"
+        }
+    ],
+    "players": [
+        {
+            "key": "player:17",
+            "season_key": "2016",
+            "name": "Jewel",
+            "team_name": "Dr Of Drag",
+            "queen_keys": [
+                "queen:32",
+                "queen:29",
+                "queen:28"
+            ],
+            "winner_key": "queen:28"
+        },
+        {
+            "key": "player:14",
+            "season_key": "2016",
+            "name": "What",
+            "team_name": "Now",
+            "queen_keys": [
+                "queen:29",
+                "queen:31",
+                "queen:28"
+            ],
+            "winner_key": "queen:28"
+        },
+        {
+            "key": "player:15",
+            "season_key": "2016",
+            "name": "fools",
+            "team_name": "are fools",
+            "queen_keys": [
+                "queen:29",
+                "queen:31",
+                "queen:28"
+            ],
+            "winner_key": "queen:29"
+        },
+        {
+            "key": "player:13",
+            "season_key": "2016",
+            "name": "MacRae Linton",
+            "team_name": "Bitch, That's Meth!",
+            "queen_keys": [
+                "queen:29",
+                "queen:26",
+                "queen:30"
+            ],
+            "winner_key": "queen:26"
+        }
+    ],
+    "play_types": [
+        {
+            "key": "play_type:10",
+            "season_key": "2016",
+            "action": "confessed",
+            "effect": 3
+        },
+        {
+            "key": "play_type:9",
+            "season_key": "2016",
+            "action": "said \"bitch\"",
+            "effect": 2
+        },
+        {
+            "key": "play_type:11",
+            "season_key": "2016",
+            "action": "helped a sister out",
+            "effect": 3
+        },
+        {
+            "key": "play_type:16",
+            "season_key": "2016",
+            "action": "had her look criticized by judges",
+            "effect": -3
+        },
+        {
+            "key": "play_type:7",
+            "season_key": "2016",
+            "action": "said \"fierce\"",
+            "effect": 2
+        },
+        {
+            "key": "play_type:12",
+            "season_key": "2016",
+            "action": "had an argument",
+            "effect": 5
+        },
+        {
+            "key": "play_type:17",
+            "season_key": "2016",
+            "action": "took off her wig",
+            "effect": -3
+        },
+        {
+            "key": "play_type:15",
+            "season_key": "2016",
+            "action": "cried",
+            "effect": -2
+        },
+        {
+            "key": "play_type:8",
+            "season_key": "2016",
+            "action": "popped her tongue",
+            "effect": 2
+        },
+        {
+            "key": "play_type:13",
+            "season_key": "2016",
+            "action": "dropped into the splits",
+            "effect": 5
+        },
+        {
+            "key": "play_type:14",
+            "season_key": "2016",
+            "action": "was picked last",
+            "effect": -2
+        }
+    ],
+    "episodes": [
+        {
+            "key": "episode:5",
+            "season_key": "2016",
+            "number": 1
+        }
+    ],
+    "plays": [
+        {
+            "key": "play:32",
+            "season_key": "2016",
+            "queen_key": "queen:27",
+            "play_type_key": "play_type:12",
+            "episode_key": "episode:5",
+            "timestamp": 1472087049
+        },
+        {
+            "key": "play:41",
+            "season_key": "2016",
+            "queen_key": "queen:31",
+            "play_type_key": "play_type:10",
+            "episode_key": "episode:5",
+            "timestamp": 1472089016
+        },
+        {
+            "key": "play:47",
+            "season_key": "2016",
+            "queen_key": "queen:26",
+            "play_type_key": "play_type:12",
+            "episode_key": "episode:5",
+            "timestamp": 1472106120
+        },
+        {
+            "key": "play:37",
+            "season_key": "2016",
+            "queen_key": "queen:24",
+            "play_type_key": "play_type:11",
+            "episode_key": "episode:5",
+            "timestamp": 1472088855
+        },
+        {
+            "key": "play:35",
+            "season_key": "2016",
+            "queen_key": "queen:28",
+            "play_type_key": "play_type:8",
+            "episode_key": "episode:5",
+            "timestamp": 1472088837
+        },
+        {
+            "key": "play:50",
+            "season_key": "2016",
+            "queen_key": "queen:32",
+            "play_type_key": "play_type:11",
+            "episode_key": "episode:5",
+            "timestamp": 1472147210
+        },
+        {
+            "key": "play:49",
+            "season_key": "2016",
+            "queen_key": "queen:30",
+            "play_type_key": "play_type:13",
+            "episode_key": "episode:5",
+            "timestamp": 1472145649
+        },
+        {
+            "key": "play:36",
+            "season_key": "2016",
+            "queen_key": "queen:26",
+            "play_type_key": "play_type:9",
+            "episode_key": "episode:5",
+            "timestamp": 1472088841
+        },
+        {
+            "key": "play:33",
+            "season_key": "2016",
+            "queen_key": "queen:24",
+            "play_type_key": "play_type:10",
+            "episode_key": "episode:5",
+            "timestamp": 1472087052
+        },
+        {
+            "key": "play:48",
+            "season_key": "2016",
+            "queen_key": "queen:32",
+            "play_type_key": "play_type:16",
+            "episode_key": "episode:5",
+            "timestamp": 1472114741
+        },
+        {
+            "key": "play:38",
+            "season_key": "2016",
+            "queen_key": "queen:28",
+            "play_type_key": "play_type:12",
+            "episode_key": "episode:5",
+            "timestamp": 1472088998
+        },
+        {
+            "key": "play:34",
+            "season_key": "2016",
+            "queen_key": "queen:32",
+            "play_type_key": "play_type:11",
+            "episode_key": "episode:5",
+            "timestamp": 1472087106
+        }
+    ]
+}
