@@ -57,6 +57,7 @@ func main() {
     fmt.Println("testing")
 
     http.ListenAndServe(":8080", r)
+    fmt.Println("we returned?")
 
 }
 
