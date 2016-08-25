@@ -34,7 +34,7 @@ func GetSeasons(w http.ResponseWriter, r *http.Request) {
 func GetSeason(w http.ResponseWriter, r *http.Request) {
     conn, err := redis.Dial("tcp", os.Getenv("REDIS_URL"))
     if err != nil {
-        fmt.Println("ERRORED CONNECTING")
+        fmt.Println("FIRST ERRORED CONNECTING", err)
         return
     }
     defer conn.Close()
