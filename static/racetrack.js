@@ -224,6 +224,7 @@ function loadEditEpisodeView(season, episode_key) {
         })});
 
     $("#content").html(edit_episode);
+    window.scrollTo(0,10000000);
 
     season.queens.forEach(function(queen, index) {
         var queen_button = "#QU" + queen.key;
