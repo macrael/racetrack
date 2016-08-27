@@ -35,7 +35,7 @@ curl http://fantasyspeedway.herokuapp.com/api/seasons/current > backups/prod-xxx
 
 Admin:
 ------
-http://localhost:8080/edit
-http://localhost:8080/edit/queens
-http://localhost:8080/edit/play_types
-http://localhost:8080/edit/players
+http://localhost:5000/edit
+http://localhost:5000/edit/queens
+http://localhost:5000/edit/play_types
+http://localhost:5000/edit/players
