@@ -215,6 +215,28 @@
 </table>
 </script>
 
+<script id="player-standings" type="text/x-handlebars-template">
+<h3>Here&rsquo;s how things stand:</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Player</th>
+            <th>Team Name</th>
+            <th>Score</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each players}}
+        <tr>
+            <td>{{name}}</td>
+            <td>{{team_name}}</td>
+            <td>{{score}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+</script>
+
 
 </head>
 <body>

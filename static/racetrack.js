@@ -141,8 +141,7 @@ function calculateQueenScores(season) {
 
     var seasonD = seasonDict(season);
 
-    console.log(seasonD);
-    for (queenKey in seasonD["queens"]) {
+    for (var queenKey in seasonD["queens"]) {
         var queen = seasonD["queens"][queenKey];
         queen.score = 0;
     }
@@ -152,19 +151,39 @@ function calculateQueenScores(season) {
         var queen = seasonD["queens"][play["queen_key"]];
         var playType = seasonD["play_types"][play["play_type_key"]];
 
-        console.log(play, queen, playType);
-        
         queen.score = queen.score + playType.effect
     }
-
-
-    console.log("done calcualting scores", seasonD.queens);
 
     season["queens"].forEach( function(queen, index) {
         dq = seasonD["queens"][queen["key"]];
         queen.score = dq.score;
     });
 
+}
+
+// this requires the queen scores to have been calculated already...
+function calculatePlayerScores(season) {
+    var seasonD = seasonDict(season);
+
+    for (var playerKey in seasonD["players"]) {
+        var player = seasonD["players"][playerKey];
+        player.score = player["queen_keys"].map(function(queen_key) {
+            return seasonD["queens"][queen_key];
+        }).reduce(function(collector, queen) {
+            return collector + queen.score;
+        }, 0);
+    }
+
+    season["players"].forEach(function(player, index) {
+        dp = seasonD["players"][player["key"]];
+        player.score = dp.score;
+    });
+    
+}
+
+function calculateScores(season) {
+    calculateQueenScores(season);
+    calculatePlayerScores(season);
 }
 
 function loadQueensView(season) {
@@ -184,7 +203,25 @@ function loadQueensView(season) {
 
     $("#content").html(queen_standings);
 }
-    
+
+
+function loadPlayersView(season) {
+    console.log("display the players");
+    var display_main_template = Handlebars.compile($("#display-main").html());
+    var player_standings_template = Handlebars.compile($("#player-standings").html());
+
+    calculateScores(season);
+
+    var sortedPlayers = season["players"].sort(function(a, b) {
+        return b.score - a.score;
+    });
+
+    var playerStandings = display_main_template({season_title: season["title"],
+        bod: player_standings_template({players: sortedPlayers}) });
+
+    $("#content").html(playerStandings);
+
+}
 
 function loadEditEpisodesView(season) {
     console.log("loading Episodes View");
@@ -568,6 +605,9 @@ function configureRouter() {
     
     Router.on("/$", function() {
         console.log("slashhhhh");
+        loadSeason(null, function(season) {
+            loadPlayersView(season);
+        });
     });
     Router.on("/queens", function() {
         console.log("SHOW! Q");

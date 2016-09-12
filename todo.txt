@@ -32,6 +32,9 @@ x Heroku
         x use a one-off to configure the season
         x PUSH
 * calculate scores
+    x queens
+    * players
+* show which queens each team has in the edit players page
 * Put the plays and queens in order at least.
 
 * in edit-episode, make the history have alternating hilighted rows
