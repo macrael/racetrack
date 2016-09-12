@@ -189,6 +189,31 @@
 </table>
 </script>
 
+<script id="display-main" type="text/x-handlebars-template">
+<h1>RPDR Fantasy</h1>
+<h2>{{season_title}}</h2>
+{{{bod}}}
+</script>
+
+<script id="queen-standings" type="text/x-handlebars-template">
+<h3>Here&rsquo;s how things stand:</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Queen</th>
+            <th>Score</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each queens}}
+        <tr>
+            <td>{{name}}</td>
+            <td>{{score}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+</script>
 
 
 </head>

@@ -48,7 +48,7 @@ func main() {
     
     // Serve our single page site to any valid url // and really, maybe any non-api url, let 404 be handled by the app. 
     r.HandleFunc("/", ServeIndex)
-    r.HandleFunc("/queen", ServeIndex)
+    r.HandleFunc("/queens", ServeIndex)
     r.HandleFunc("/edit", ServeIndex)
     r.HandleFunc("/edit/queens", ServeIndex)
     r.HandleFunc("/edit/play_types", ServeIndex)

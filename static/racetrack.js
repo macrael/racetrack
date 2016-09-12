@@ -109,9 +109,82 @@ function postPlay(play) {
 
 var CurrentViewLoader;
 
-function loadMainView(season) {
+// ugh, maybe I want to do this at the start? Maybe the API should return it??
+// Probably need to refactor this around
+var _seasonDict;
+function seasonDict(season) {
+    if (_seasonDict) {
+        return _seasonDict;
+    }
+    _seasonDict = {};
+    for (var key in season) {
+        if (season[key].constructor === Array) {
+            _seasonDict[key] = {};
+            season[key].forEach(function(item, index) {
+               var itemKey = item["key"];
+               if (itemKey == null) {
+                   console.log("Woah, no key here... not sure what to do.");
+                   throw "tried to be too clever, apparently"
+               }
+               _seasonDict[key][itemKey] = item;
+            });
+        } else {
+            _seasonDict[key] = season[key];
+        }
+    }
+    return _seasonDict;
+}
+
+
+// inserts "score" into all the queen objects
+function calculateQueenScores(season) {
+
+    var seasonD = seasonDict(season);
+
+    console.log(seasonD);
+    for (queenKey in seasonD["queens"]) {
+        var queen = seasonD["queens"][queenKey];
+        queen.score = 0;
+    }
+
+    for (var playKey in seasonD["plays"]) {
+        var play = seasonD["plays"][playKey];
+        var queen = seasonD["queens"][play["queen_key"]];
+        var playType = seasonD["play_types"][play["play_type_key"]];
+
+        console.log(play, queen, playType);
+        
+        queen.score = queen.score + playType.effect
+    }
+
+
+    console.log("done calcualting scores", seasonD.queens);
+
+    season["queens"].forEach( function(queen, index) {
+        dq = seasonD["queens"][queen["key"]];
+        queen.score = dq.score;
+    });
 
 }
+
+function loadQueensView(season) {
+    console.log("my first display view");
+    var display_main_template = Handlebars.compile($("#display-main").html());
+    var queen_standings_template = Handlebars.compile($("#queen-standings").html());
+
+    calculateQueenScores(season);
+    console.log(season.queens);
+
+    var sorted_queens = season["queens"].sort(function(a, b) {
+        return b.score - a.score;
+    });
+
+    var queen_standings = display_main_template({season_title: season["title"],
+        bod: queen_standings_template({queens: sorted_queens}) });
+
+    $("#content").html(queen_standings);
+}
+    
 
 function loadEditEpisodesView(season) {
     console.log("loading Episodes View");
@@ -495,6 +568,12 @@ function configureRouter() {
     
     Router.on("/$", function() {
         console.log("slashhhhh");
+    });
+    Router.on("/queens", function() {
+        console.log("SHOW! Q");
+        loadSeason(null, function(season) {
+            loadQueensView(season);
+        });
     });
     Router.on("/edit/queens", function() {
         console.log("EDITQ!");
