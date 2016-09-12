@@ -31,16 +31,25 @@ x Heroku
         x provision redis
         x use a one-off to configure the season
         x PUSH
-* calculate scores
+x calculate scores
     x queens
-    * players
+    x players
+
 * show which queens each team has in the edit players page
+* show which queens each player has in the main page
+* create the view-episode link
+* queens shoul show everything they've done in previous episodes under them.
 * Put the plays and queens in order at least.
+* link to all the pages from everything
+* remove the debug button from prod
+
+* prod is slow loading
 
 * in edit-episode, make the history have alternating hilighted rows
 * solve the bin-packing problem
 * create nav between different parts of main pages. 
 * create the UI
+* why did I have to refresh the page 6 times to get the new js?
 
 * refactor the redis stuff so that we arent repeating ourselves
     * still repeaty in get season
