@@ -2,6 +2,11 @@
 // pulls down data from the webserver
 // displayes the views
 
+// This seems a little wrong...
+var $ = require("./jquery-3.1.0.js");
+var Navigo = require("./navigo.js");
+var Handlebars = require("./handlebars-v4.0.5.js");
+
 var TheSeason;
 var Router;
 
@@ -251,7 +256,7 @@ function loadEditEpisodesView(season) {
         del_key = del_key.replace(/:/, '\\:');
         $(del_key).click(function() {
             //TODO: make it a double-click situation. -- could just alert
-            season_key = TheSeason["key"];
+            season_key = season["key"];
             episode_path = "/api/seasons/" + season_key + "/episodes/" + episode.key; //ugh, urls are the best ids,
 
             $.ajax({
@@ -349,7 +354,7 @@ function loadEditEpisodeView(season, episode_key) {
         del_key = del_key.replace(/:/, '\\:');
         $(del_key).click(function() {
             //TODO: make it a double-click situation. -- could just alert
-            season_key = TheSeason["key"];
+            season_key = season["key"];
             play_path = "/api/seasons/" + season_key + "/plays/" + play.key; //ugh, urls are the best ids,
 
             $.ajax({
@@ -407,7 +412,7 @@ function loadEditPlaysView(season) {
         del_key = del_key.replace(/:/, '\\:');
         $(del_key).click(function() {
             //TODO: make it a double-click situation.
-            season_key = TheSeason["key"];
+            season_key = season["key"];
             play_type_path = "/api/seasons/" + season_key + "/play_types/" + play_type.key; //ugh, urls are the best ids,
 
             $.ajax({
@@ -454,7 +459,7 @@ function loadEditQueensView(season) {
         del_key = del_key.replace(/:/, '\\:');
         $(del_key).click(function() {
             //TODO: make it a double-click situation.
-            season_key = TheSeason["key"];
+            season_key = season["key"];
             queen_path = "/api/seasons/" + season_key + "/queens/" + queen.key; //ugh, urls are the best ids,
 
             $.ajax({
@@ -559,7 +564,7 @@ function loadEditPlayersView(season, extra_data) {
         del_key = del_key.replace(/:/, '\\:');
         $(del_key).click(function() {
             //TODO: make it a double-click situation.
-            season_key = TheSeason["key"];
+            season_key = season["key"];
             player_path = "/api/seasons/" + season_key + "/players/" + player.key; //ugh, urls are the best ids,
 
             $.ajax({
@@ -603,16 +608,16 @@ function configureRouter() {
             loadPlayersView(season);
         });
     });
-    Router.on("/queens", function() {
-        console.log("SHOW! Q");
-        loadSeason(null, function(season) {
-            loadQueensView(season);
-        });
-    });
     Router.on("/edit/queens", function() {
         console.log("EDITQ!");
         loadSeason(null, function(season) {
             loadEditQueensView(season);
+        });
+    });
+    Router.on("/queens", function() {
+        console.log("SHOW! Q");
+        loadSeason(null, function(season) {
+            loadQueensView(season);
         });
     });
     Router.on("/edit/play_types", function() {

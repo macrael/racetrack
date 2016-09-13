@@ -32,6 +32,9 @@ x calculate scores
     x queens
     x players
 
+* refactor frontend to have a build system and be broken into smaller parts
+
+* show the most recent episode delta in the player/queen views
 * show which queens each team has in the edit players page
 * show which queens each player has in the main page
 * create the view-episode link
@@ -41,7 +44,6 @@ x calculate scores
 * remove the debug button from prod
 
 * prod is slow loading
-* refactor frontend to have a build system and be broken into smaller parts
 
 * get rid of the default text in everything
 * in edit-episode, make the history have alternating hilighted rows
@@ -129,6 +131,7 @@ TESTS I SHOULD HAVE CREATED
     * needs to be able to run with build && run serer && test
     * needs to reset database stuff in between, or start fresh
 * I kindof like the idea of testing the api consumer and the api together, then you just aren't testing the UI
+* The router is very testable, make sure that urls trigger the right function calls
 
 * In one test, should be able to:
     * seed database

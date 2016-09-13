@@ -4,5 +4,5 @@ racetrack
 *.swp
 .env
 
-static/config.js
+static/racetrack.js
 
