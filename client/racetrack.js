@@ -4,38 +4,13 @@
 
 // This seems a little wrong...
 var $ = require("./jquery-3.1.0.js");
-var Navigo = require("./navigo.js");
 var Handlebars = require("./handlebars-v4.0.5.js");
+var Router = require("./router.js");
 
 var TheSeason;
-var Router;
 
 // !--- API -----
 
-function loadSeason(season_key, success) {
-    // !!dev vs. prod
-    console.log("loading season: " + season_key);
-
-    if (season_key == null) {
-        season_key = "current";
-    }
-    path = "/api/seasons/" + season_key;
-
-    console.log("Get: " + path)
-
-    $.get(path, function(data) {
-        console.log("ewback");
-        console.log(data);
-
-        var season = JSON.parse(data);
-
-        TheSeason = season
-        if (success) {
-            success(season);
-        }
-    });
-
-}
 
 function postQueen(queen, success) {
     console.log("postQueen", queen);
@@ -103,87 +78,7 @@ function postPlay(play) {
     });
 
 }
-
 // ---------- Routers ----------
-
-var CurrentViewLoader;
-
-// ugh, maybe I want to do this at the start? Maybe the API should return it??
-// Probably need to refactor this around
-var _seasonDict;
-function seasonDict(season) {
-    if (_seasonDict) {
-        return _seasonDict;
-    }
-    _seasonDict = {};
-    for (var key in season) {
-        if (season[key].constructor === Array) {
-            _seasonDict[key] = {};
-            season[key].forEach(function(item, index) {
-               var itemKey = item["key"];
-               if (itemKey == null) {
-                   console.log("Woah, no key here... not sure what to do.");
-                   throw "tried to be too clever, apparently"
-               }
-               _seasonDict[key][itemKey] = item;
-            });
-        } else {
-            _seasonDict[key] = season[key];
-        }
-    }
-    return _seasonDict;
-}
-
-
-// inserts "score" into all the queen objects
-function calculateQueenScores(season) {
-
-    var seasonD = seasonDict(season);
-
-    for (var queenKey in seasonD["queens"]) {
-        var queen = seasonD["queens"][queenKey];
-        queen.score = 0;
-    }
-
-    for (var playKey in seasonD["plays"]) {
-        var play = seasonD["plays"][playKey];
-        var queen = seasonD["queens"][play["queen_key"]];
-        var playType = seasonD["play_types"][play["play_type_key"]];
-
-        queen.score = queen.score + playType.effect
-    }
-
-    season["queens"].forEach( function(queen, index) {
-        dq = seasonD["queens"][queen["key"]];
-        queen.score = dq.score;
-    });
-
-}
-
-// this requires the queen scores to have been calculated already...
-function calculatePlayerScores(season) {
-    var seasonD = seasonDict(season);
-
-    for (var playerKey in seasonD["players"]) {
-        var player = seasonD["players"][playerKey];
-        player.score = player["queen_keys"].map(function(queen_key) {
-            return seasonD["queens"][queen_key];
-        }).reduce(function(collector, queen) {
-            return collector + queen.score;
-        }, 0);
-    }
-
-    season["players"].forEach(function(player, index) {
-        dp = seasonD["players"][player["key"]];
-        player.score = dp.score;
-    });
-    
-}
-
-function calculateScores(season) {
-    calculateQueenScores(season);
-    calculatePlayerScores(season);
-}
 
 function loadQueensView(season) {
     console.log("my first display view");
@@ -201,25 +96,6 @@ function loadQueensView(season) {
         bod: queen_standings_template({queens: sorted_queens}) });
 
     $("#content").html(queen_standings);
-}
-
-
-function loadPlayersView(season) {
-    console.log("display the players");
-    var display_main_template = Handlebars.compile($("#display-main").html());
-    var player_standings_template = Handlebars.compile($("#player-standings").html());
-
-    calculateScores(season);
-
-    var sortedPlayers = season["players"].sort(function(a, b) {
-        return b.score - a.score;
-    });
-
-    var playerStandings = display_main_template({season_title: season["title"],
-        bod: player_standings_template({players: sortedPlayers}) });
-
-    $("#content").html(playerStandings);
-
 }
 
 function loadEditEpisodesView(season) {
@@ -265,7 +141,6 @@ function loadEditEpisodesView(season) {
                 success: function(result) {
                     // Do something with the result
                     console.log("DELTEETEDee");
-                    //loadSeason(season_key)
                     Router.reresolve();
                 }
             });
@@ -363,7 +238,6 @@ function loadEditEpisodeView(season, episode_key) {
                 success: function(result) {
                     // Do something with the result
                     console.log("DELTEETEDpee");
-                    //loadSeason(season_key)
                     Router.reresolve();
                 }
             });
@@ -421,7 +295,6 @@ function loadEditPlaysView(season) {
                 success: function(result) {
                     // Do something with the result
                     console.log("DELTEETEDss");
-                    //loadSeason(season_key)
                     Router.reresolve()
                 }
             });
@@ -468,7 +341,6 @@ function loadEditQueensView(season) {
                 success: function(result) {
                     // Do something with the result
                     console.log("DELTEETED");
-                    //loadSeason(season_key)
                     Router.reresolve();
                 }
             });
@@ -573,7 +445,6 @@ function loadEditPlayersView(season, extra_data) {
                 success: function(result) {
                     // Do something with the result
                     console.log("DELTEETplED");
-                    //loadSeason(season_key)
                     Router.reresolve();
                 }
             });
@@ -595,74 +466,7 @@ function loadEditPlayersView(season, extra_data) {
     });
 }
 
-function configureRouter() {
-    Router = new Navigo(null, false);
-    Router.reresolve = function() { // HACK, poor man's react
-        this._lastRouteResolved = null;
-        this.resolve();
-    }
-    
-    Router.on("/$", function() {
-        console.log("slashhhhh");
-        loadSeason(null, function(season) {
-            loadPlayersView(season);
-        });
-    });
-    Router.on("/edit/queens", function() {
-        console.log("EDITQ!");
-        loadSeason(null, function(season) {
-            loadEditQueensView(season);
-        });
-    });
-    Router.on("/queens", function() {
-        console.log("SHOW! Q");
-        loadSeason(null, function(season) {
-            loadQueensView(season);
-        });
-    });
-    Router.on("/edit/play_types", function() {
-        console.log("EDITP!");
-        loadSeason(null, function(season) {
-            loadEditPlaysView(season);
-        });
-    });
-    Router.on({"/edit/episodes/:episode_key": { 
-        as:"episode.edit", 
-        uses: function(params) {
-            console.log("edit taht episode: ", params.episode_key);
-            loadSeason(null, function(season) {
-                loadEditEpisodeView(season, params.episode_key);
-            });
-        }
-    }});
-    Router.on("/edit/episodes", function() {
-        console.log("EDIT");
-        loadSeason(null, function(season) {
-            loadEditEpisodesView(season);
-        });
-    });
-    Router.on("/edit/players", function() {
-        console.log("EDITP");
-        loadSeason(null, function(season) {
-            loadEditPlayersView(season);
-        });
-    });
-    Router.on("/edit$", function() {
-        console.log("EDIT");
-        loadSeason(null, function(season) {
-            loadEditEpisodesView(season);
-        });
-    });
-    Router.on("/queen", function() {
-        console.log("queeeeen");
-    });
-    Router.on(function() {
-        console.log("404");
-    });
-}
-
 // ---------- End Routers ----------
-
 
 function debugPress() {
     console.log("debug press")
@@ -680,7 +484,6 @@ function main() {
     console.log("hello there");
     $("#debug_button").click(debugPress);
 
-    configureRouter();
     Router.resolve();
 }
 
