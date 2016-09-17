@@ -181,7 +181,7 @@
         <tr>
             <td>{{name}}</td>
             <td>{{team_name}}</td>
-            <td>{{#each queens}}{{name}} {{/each}}
+            <td>{{#each queens}}{{name}}{{#if winner}}!{{/if}} {{/each}}
             <td><button id="DEL{{key}}">delete</button></td>
         </tr>
         {{/each}}

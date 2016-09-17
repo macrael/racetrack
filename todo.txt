@@ -72,6 +72,12 @@ x calculate scores
 * set up a season the first time you get going. 
 * we know how many episodes there will be, (and when they air?) we could just show the next one? or something?
 
+
+BUGS
+----
+* if you delete a queen we don't clean up the references to her in Players, Plays, ...
+
+
 Questions:
 ----------
 * Should I be starting the redis connnection on each request or have a global?

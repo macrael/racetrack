@@ -54,6 +54,8 @@ func DeleteQueen(w http.ResponseWriter, r *http.Request) {
         success = DeleteObject("queen", queen_key, del_queen)
     }
 
+    //TODO: If you delete a queen, we don't clean up references to it in players (at least)...
+
     if (success) {
         fmt.Fprintf(w, "200 OK (deleted)")
     } else {

@@ -46,9 +46,18 @@ var players = {
             var queens = []
             player.queen_keys.forEach(function(queen_key) {
                 console.log("we check key", queen_key);
-                queens.push(season.queens.find(function(queen) {
-                    return queen.key == queen_key;
-                }));
+                queen = season.queens.find(function(q) {
+                    return q.key == queen_key;
+                });
+                if (queen) {
+                    var queen_copy = JSON.parse(JSON.stringify(queen));
+                    if (queen_copy.key == player.winner_key) {
+                        queen_copy.winner = true;
+                    }
+                    queens.push(queen_copy);
+                } else {
+                    console.log("DATA INTEGRIGTY BROKE!", queen_key);
+                }
             });
             console.log("got queens", queens);
             player.queens = queens;
