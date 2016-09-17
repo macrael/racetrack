@@ -6,6 +6,7 @@ var Navigo = require("./navigo.js");
 var loadSeason = require("./load_season.js");
 var players = require("./players.js");
 var queens = require("./queens.js");
+var play_types = require("./play_types.js");
 
 var router = new Navigo(null, false);
 
@@ -38,7 +39,7 @@ router.on("/queens", function() {
 router.on("/edit/play_types", function() {
     console.log("EDITP!");
     loadSeason(null, function(season) {
-        loadEditPlaysView(season);
+        play_types.loadEditView(season, router);
     });
 });
 router.on({"/edit/episodes/:episode_key": { 

@@ -11,32 +11,6 @@ var TheSeason;
 
 // !--- API -----
 
-function postPlayer(player, success) {
-    console.log("postPlayer", player);
-
-    season_key = TheSeason["key"]
-    path = "/api/seasons/" + season_key + "/players"
-
-    $.post(path, JSON.stringify(player), function() {
-        console.log("Finihed new Player Post");
-        Router.reresolve();
-        console.log("Did player");
-    });
-}
-
-function postPlayType(playType, success) {
-    console.log("postPlayType", playType);
-
-    season_key = TheSeason["key"]
-    path = "/api/seasons/" + season_key + "/play_types"
-
-    $.post(path, JSON.stringify(playType), function() {
-        console.log("Finihed new PlayType Post");
-        Router.reresolve();
-    });
-
-}
-
 function postEpisode(episode, success) {
     console.log("postEpisode", episode);
 
@@ -226,50 +200,6 @@ function loadEditEpisodeView(season, episode_key) {
     
 }
 
-function loadEditPlaysView(season) {
-    console.log("loading plays");
-
-    var edit_main_template = Handlebars.compile($("#edit-main").html());
-    var edit_play_types_template = Handlebars.compile($("#edit-play-types").html());
-
-    var new_content = edit_main_template({season_title: season["title"], 
-                                                                                          bod: edit_play_types_template({play_types: season["play_types"]})})
-
-    $("#content").html(new_content);
-    $("#new-play-type-form").submit(function(e) {
-        e.preventDefault();
-        console.log("SUBMITIT");
-        var newPlayType = {
-            action: $("#new-play-type-action").val(),
-            effect: Number($("#new-play-type-effect").val())
-        };
-        postPlayType(newPlayType);
-
-        //TODO: pull down new truth?...... really just need to add this queen to the list....
-    });
-
-    season.play_types.forEach(function(play_type, index) {
-        console.log(play_type);
-        var del_key = "#DEL" + play_type.key;
-        del_key = del_key.replace(/:/, '\\:');
-        $(del_key).click(function() {
-            //TODO: make it a double-click situation.
-            season_key = season["key"];
-            play_type_path = "/api/seasons/" + season_key + "/play_types/" + play_type.key; //ugh, urls are the best ids,
-
-            $.ajax({
-                url: play_type_path,
-                type: 'DELETE',
-                success: function(result) {
-                    // Do something with the result
-                    console.log("DELTEETEDss");
-                    Router.reresolve();
-                }
-            });
-        });
-    });
-
-}
 
 // ---------- End Routers ----------
 
