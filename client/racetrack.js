@@ -11,21 +11,6 @@ var TheSeason;
 
 // !--- API -----
 
-
-function postQueen(queen, success) {
-    console.log("postQueen", queen);
-
-    season_key = TheSeason["key"]
-    path = "/api/seasons/" + season_key + "/queens"
-
-    $.post(path, JSON.stringify(queen), function() {
-        console.log("Finihed new Queen Post");
-        Router.reresolve();
-        console.log("Did queen");
-    });
-
-}
-
 function postPlayer(player, success) {
     console.log("postPlayer", player);
 
@@ -80,23 +65,6 @@ function postPlay(play) {
 }
 // ---------- Routers ----------
 
-function loadQueensView(season) {
-    console.log("my first display view");
-    var display_main_template = Handlebars.compile($("#display-main").html());
-    var queen_standings_template = Handlebars.compile($("#queen-standings").html());
-
-    calculateQueenScores(season);
-    console.log(season.queens);
-
-    var sorted_queens = season["queens"].sort(function(a, b) {
-        return b.score - a.score;
-    });
-
-    var queen_standings = display_main_template({season_title: season["title"],
-        bod: queen_standings_template({queens: sorted_queens}) });
-
-    $("#content").html(queen_standings);
-}
 
 function loadEditEpisodesView(season) {
     console.log("loading Episodes View");
@@ -295,175 +263,12 @@ function loadEditPlaysView(season) {
                 success: function(result) {
                     // Do something with the result
                     console.log("DELTEETEDss");
-                    Router.reresolve()
-                }
-            });
-        });
-    });
-
-}
-
-function loadEditQueensView(season) {
-    console.log("loadEditQueens");
-    console.log(season);
-
-    var edit_main_template = Handlebars.compile($("#edit-main").html());
-    var edit_queens_template = Handlebars.compile($("#edit-queens").html());
-    var new_queen_template = Handlebars.compile($("#new-queen").html());
-    var queens_list_template = Handlebars.compile($("#queens-list").html());
-
-    var new_content = edit_main_template({season_title: season["title"], bod: edit_queens_template({new_queen: new_queen_template(), old_queens: queens_list_template({queens: season.queens})})});
-
-    $("#content").html(new_content);
-    $("#new-queen-form").submit(function(e) {
-        e.preventDefault();
-        console.log("SUBMIT");
-        var newQueen = {
-            name: $("input#name").val()
-        };
-        postQueen(newQueen);
-
-        //TODO: pull down new truth?...... really just need to add this queen to the list....
-    });
-    // hook up all the delete buttons
-    season.queens.forEach(function(queen, index) {
-        console.log(queen);
-        var del_key = "#DEL" + queen.key;
-        del_key = del_key.replace(/:/, '\\:');
-        $(del_key).click(function() {
-            //TODO: make it a double-click situation.
-            season_key = season["key"];
-            queen_path = "/api/seasons/" + season_key + "/queens/" + queen.key; //ugh, urls are the best ids,
-
-            $.ajax({
-                url: queen_path,
-                type: 'DELETE',
-                success: function(result) {
-                    // Do something with the result
-                    console.log("DELTEETED");
                     Router.reresolve();
                 }
             });
         });
     });
 
-}
-
-function loadEditPlayersView(season, extra_data) {
-    console.log("editingPlayers");
-    
-    var edit_main_template = Handlebars.compile($("#edit-main").html());
-    var edit_players_template = Handlebars.compile($("#edit-players").html());
-    var new_player_template = Handlebars.compile($("#new-player").html());
-    var players_list_template = Handlebars.compile($("#players-list").html());
-
-    if (!extra_data) {
-        extra_data = {
-            selected_queens: [],
-            player_name: "Dummy",
-            player_team: "Gay Idiots"
-        }
-    }
-
-    var enable_create = extra_data.selected_queens.length == 3 && extra_data.selected_queens.find(function(queen) { return queen.winner });
-
-    var edit_players = edit_main_template({
-        bod: edit_players_template({
-            new_player: new_player_template({
-                player_name: extra_data.player_name,
-                player_team: extra_data.player_team,
-                queens: season.queens,
-                selected_queens: extra_data.selected_queens,
-                create_enabled: enable_create
-            }),
-            old_players: players_list_template({ players: season.players})
-            })
-        });
-
-    $("#content").html(edit_players);
-
-    season.queens.forEach(function(queen, index) {
-        var queen_button = "#QU" + queen.key;
-        queen_button = queen_button.replace(/:/, '\\:');
-        $(queen_button).click(function(e) {
-            console.log("clicked Queen");
-            e.preventDefault(); // why here and not elsewhere? any button in a form?
-            queen.selected = !queen.selected;
-            if (queen.selected) {
-                extra_data.selected_queens.push(queen);
-                if (extra_data.selected_queens.length > 3) {
-                    extra_data.selected_queens[0].selected = false;
-                    extra_data.selected_queens.shift();
-                }
-            } else {
-                qi = extra_data.selected_queens.indexOf(queen);
-                extra_data.selected_queens.splice(qi, 1);
-            }
-            
-            console.log(season);
-            console.log(extra_data.selected_queens);
-            extra_data.player_name = $("#player-name").val();
-            extra_data.player_team = $("#team-name").val();
-
-            loadEditPlayersView(season, extra_data);
-        });
-    });
-    
-    extra_data.selected_queens.forEach(function(selected_queen, index) {
-        var squeen_button = "#SQ" + selected_queen.key;
-        squeen_button = squeen_button.replace(/:/, '\\:');
-        $(squeen_button).click(function(e) {
-            console.log("Picking Queen");
-            e.preventDefault();
-            
-            extra_data.selected_queens.forEach(function(clear_queen, index) {
-                if (clear_queen === selected_queen) {
-                    clear_queen.winner = !clear_queen.winner;
-                    console.log("gota winner", clear_queen.winner);
-                } else {
-                    clear_queen.winner = false;
-                }
-            });
-            extra_data.player_name = $("#player-name").val();
-            extra_data.player_team = $("#team-name").val();
-            loadEditPlayersView(season, extra_data);
-        });
-    });
-
-    season.players.forEach(function(player, index) {
-        console.log(player);
-        var del_key = "#DEL" + player.key;
-        del_key = del_key.replace(/:/, '\\:');
-        $(del_key).click(function() {
-            //TODO: make it a double-click situation.
-            season_key = season["key"];
-            player_path = "/api/seasons/" + season_key + "/players/" + player.key; //ugh, urls are the best ids,
-
-            $.ajax({
-                url: player_path,
-                type: 'DELETE',
-                success: function(result) {
-                    // Do something with the result
-                    console.log("DELTEETplED");
-                    Router.reresolve();
-                }
-            });
-        });
-    });
-
-    $("#new-player-form").submit(function(e) {
-        e.preventDefault();
-
-        new_player = {
-            name: $("#player-name").val(),
-            team_name: $("#team-name").val(),
-            queen_keys: extra_data.selected_queens.map(function(queen) { return queen.key }),
-            winner_key: extra_data.selected_queens.find(function(queen) { return queen.winner}).key
-        }
-
-        postPlayer(new_player);
-
-    });
 }
 
 // ---------- End Routers ----------
@@ -485,6 +290,7 @@ function main() {
     $("#debug_button").click(debugPress);
 
     Router.resolve();
+    Router.reresolve();
 }
 
 $('document').ready(main);

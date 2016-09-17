@@ -32,7 +32,13 @@ x calculate scores
     x queens
     x players
 
-* refactor frontend to have a build system and be broken into smaller parts
+* Refactor Frontend
+    * refactor to have a build system and be broken into smaller parts
+    * refactor adding actions so it's not as complex
+        * refactor adding delete buttons
+        * very repeaty in js.
+    * refactor js views into separate files
+        * things that don't depend on one another should be easy to split.
 
 * show the most recent episode delta in the player/queen views
 * show which queens each team has in the edit players page
@@ -54,11 +60,6 @@ x calculate scores
 
 * refactor the redis stuff so that we arent repeating ourselves
     * still repeaty in get season
-* refactor adding actions so it's not as complex
-    * refactor adding delete buttons
-    * very repeaty in js.
-* refactor js views into separate files
-    * things that don't depend on one another should be easy to split.
 
 * queens need images, at least. Players (teams?) too.
 * move ids to be urls, until then we use redis keys for everything. 

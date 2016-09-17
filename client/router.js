@@ -5,6 +5,7 @@ var Navigo = require("./navigo.js");
 
 var loadSeason = require("./load_season.js");
 var players = require("./players.js");
+var queens = require("./queens.js");
 
 var router = new Navigo(null, false);
 
@@ -25,13 +26,13 @@ router.on("/$", function() {
 router.on("/edit/queens", function() {
     console.log("EDITQ!");
     loadSeason(null, function(season) {
-        loadEditQueensView(season);
+        queens.loadEditView(season, router); // I'm not a fan of passing the router down, but not sure how to let the views trigger a refresh otherwise. 
     });
 });
 router.on("/queens", function() {
     console.log("SHOW! Q");
     loadSeason(null, function(season) {
-        loadQueensView(season);
+        queens.loadView(season);
     });
 });
 router.on("/edit/play_types", function() {
@@ -58,7 +59,7 @@ router.on("/edit/episodes", function() {
 router.on("/edit/players", function() {
     console.log("EDITP");
     loadSeason(null, function(season) {
-        loadEditPlayersView(season);
+        players.loadEditView(season, router);
     });
 });
 router.on("/edit$", function() {
@@ -66,9 +67,6 @@ router.on("/edit$", function() {
     loadSeason(null, function(season) {
         loadEditEpisodesView(season);
     });
-});
-router.on("/queen", function() {
-    console.log("queeeeen");
 });
 router.on(function() {
     console.log("404");
