@@ -32,13 +32,14 @@ function seasonDict(season) {
 
 
 // inserts "score" into all the queen objects
-function calculateQueenScores(season) {
+function calculateQueenScores(season, most_recent_episode_key) {
 
     var seasonD = seasonDict(season);
 
     for (var queenKey in seasonD["queens"]) {
         var queen = seasonD["queens"][queenKey];
         queen.score = 0;
+        queen.ep_delta = 0;
     }
 
     for (var playKey in seasonD["plays"]) {
@@ -46,18 +47,22 @@ function calculateQueenScores(season) {
         var queen = seasonD["queens"][play["queen_key"]];
         var playType = seasonD["play_types"][play["play_type_key"]];
 
-        queen.score = queen.score + playType.effect
+        queen.score = queen.score + playType.effect;
+        if (play.episode_key == most_recent_episode_key) {
+            queen.ep_delta = queen.ep_delta + playType.effect;
+        }
     }
 
     season["queens"].forEach( function(queen, index) {
         dq = seasonD["queens"][queen["key"]];
         queen.score = dq.score;
+        queen.ep_delta = dq.ep_delta;
     });
 
 }
 
 // this requires the queen scores to have been calculated already...
-function calculatePlayerScores(season) {
+function calculatePlayerScores(season, most_recent_episode_key) {
     var seasonD = seasonDict(season);
 
     for (var playerKey in seasonD["players"]) {
@@ -67,18 +72,34 @@ function calculatePlayerScores(season) {
         }).reduce(function(collector, queen) {
             return collector + queen.score;
         }, 0);
+
+        player.ep_delta = player["queen_keys"].map(function(queen_key) {
+            return seasonD["queens"][queen_key];
+        }).reduce(function(collector, queen) {
+            return collector + queen.ep_delta;
+        }, 0);
     }
 
     season["players"].forEach(function(player, index) {
         dp = seasonD["players"][player["key"]];
         player.score = dp.score;
+        player.ep_delta = dp.ep_delta;
     });
     
 }
 
 function calculateScores(season) {
-    calculateQueenScores(season);
-    calculatePlayerScores(season);
+    
+    var sorted_eps = season["episodes"].sort(function(a, b) {
+        return a.number - b.number;
+    });
+    var most_recent_episode_key = null;
+    if (sorted_eps.length != 0) {
+        most_recent_episode_key = sorted_eps[sorted_eps.length - 1].key
+    }
+
+    calculateQueenScores(season, most_recent_episode_key);
+    calculatePlayerScores(season, most_recent_episode_key);
 }
 
 

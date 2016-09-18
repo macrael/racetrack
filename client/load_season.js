@@ -17,7 +17,6 @@ function loadSeason(season_key, success) {
 
         var season = JSON.parse(data);
 
-        TheSeason = season
         if (success) {
             success(season);
         }

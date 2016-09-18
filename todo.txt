@@ -4,16 +4,13 @@ x get something on the frontend up that can pull the season down for it
 x start putting things on redis
 x create fill_in_current route function for one route
 x call that route with the downloaded thing
-
 x create new queen
 x list all queens
 x delete queen:: Ugh, apparently ":" in html id's mess up jquery // gotta escape them
 x have  view update on del/add
 x README
-
 x edit the list of possible plays
 x create new episode
-
 x add events to episodes
     x QUEEN did WHAT?
 x Players
@@ -22,8 +19,6 @@ x godeps
 x Heroku
     x need a proc file
     x need to handle dev/prod correctly   
-        * gonna get env variables, use that to write the config file for static?
-            * drop the config file, should just be using realative paths
         x got to do redis right, should I have a global conn instead of per-call?
         x provision redis
         x use a one-off to configure the season
@@ -31,25 +26,24 @@ x Heroku
 x calculate scores
     x queens
     x players
-
-* Refactor Frontend
+x show which queens each team has in the edit players page
+x Refactor Frontend
     x refactor to have a build system and be broken into smaller parts
-    * refactor adding actions so it's not as complex
+    x refactor adding actions so it's not as complex
         x refactor adding delete buttons
-        * very repeaty in js.
     x refactor js views into separate files
         x things that don't depend on one another should be easy to split.
+    x theres slop in racetrack.js around the global TheSeason and trying to pass it around
 
+* remove the debug button from prod
 * figure out how to deploy the webpack'd js
 
 * show the most recent episode delta in the player/queen views
-* show which queens each team has in the edit players page
 * show which queens each player has in the main page
 * create the view-episode link
 * queens shoul show everything they've done in previous episodes under them.
 * Put the plays and queens in order at least.
 * link to all the pages from everything
-* remove the debug button from prod
 
 * prod is slow loading
 
@@ -60,21 +54,23 @@ x calculate scores
 * create the UI
 * why did I have to refresh the page 6 times to get the new js?
 
-* refactor the redis stuff so that we arent repeating ourselves
-    * still repeaty in get season
 
 * queens need images, at least. Players (teams?) too.
 * move ids to be urls, until then we use redis keys for everything. 
 * embed the data in the first pull down so you don't have to hit the server 2x. 
 * gofmt
 
-* theres slop in racetrack.js around the global TheSeason and trying to pass it around
-    * just need to take it out of the PostWhatever methods
 * nice 404 page? rendered in the single page, probably...
+    * will have to redo how we are doing routes, again
 * set up a season the first time you get going. 
 * we know how many episodes there will be, (and when they air?) we could just show the next one? or something?
 * maybe move calculation into Go code for learning purposes.
 
+REFACTORING
+===========
+* refactor the redis stuff so that we arent repeating ourselves
+    * still repeaty in get season
+* decide on season.episodes vs. season["episodes"] and make it consistent.
 
 BUGS
 ----

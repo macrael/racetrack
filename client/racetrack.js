@@ -6,8 +6,6 @@
 var $ = require("./jquery-3.1.0.js");
 var Router = require("./router.js");
 
-var TheSeason;
-
 function debugPress() {
     console.log("debug press")
 
