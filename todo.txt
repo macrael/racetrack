@@ -33,12 +33,12 @@ x calculate scores
     x players
 
 * Refactor Frontend
-    * refactor to have a build system and be broken into smaller parts
+    x refactor to have a build system and be broken into smaller parts
     * refactor adding actions so it's not as complex
         * refactor adding delete buttons
         * very repeaty in js.
-    * refactor js views into separate files
-        * things that don't depend on one another should be easy to split.
+    x refactor js views into separate files
+        x things that don't depend on one another should be easy to split.
 
 * show the most recent episode delta in the player/queen views
 * show which queens each team has in the edit players page
@@ -71,6 +71,7 @@ x calculate scores
 * nice 404 page? rendered in the single page, probably...
 * set up a season the first time you get going. 
 * we know how many episodes there will be, (and when they air?) we could just show the next one? or something?
+* maybe move calculation into Go code for learning purposes.
 
 
 BUGS

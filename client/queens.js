@@ -48,6 +48,7 @@ var queens = {
         });
 
         // hook up all the delete buttons
+        // TODO: this should be common, for sure. All delete buttons work the same
         season.queens.forEach(function(queen, index) {
             console.log(queen);
             var del_key = "#DEL" + queen.key;

@@ -7,6 +7,7 @@ var loadSeason = require("./load_season.js");
 var players = require("./players.js");
 var queens = require("./queens.js");
 var play_types = require("./play_types.js");
+var episodes = require("./episodes.js");
 
 var router = new Navigo(null, false);
 
@@ -47,14 +48,14 @@ router.on({"/edit/episodes/:episode_key": {
     uses: function(params) {
         console.log("edit taht episode: ", params.episode_key);
         loadSeason(null, function(season) {
-            loadEditEpisodeView(season, params.episode_key);
+            episodes.loadEditEpisodeView(season, params.episode_key, router);
         });
     }
 }});
 router.on("/edit/episodes", function() {
     console.log("EDIT");
     loadSeason(null, function(season) {
-        loadEditEpisodesView(season);
+        episodes.loadEditView(season, router);
     });
 });
 router.on("/edit/players", function() {
@@ -66,7 +67,7 @@ router.on("/edit/players", function() {
 router.on("/edit$", function() {
     console.log("EDIT");
     loadSeason(null, function(season) {
-        loadEditEpisodesView(season);
+        episodes.loadEditView(season, router);
     });
 });
 router.on(function() {

@@ -26,7 +26,6 @@ var api = {
             type: 'DELETE',
             success: function(result) {
                 // Do something with the result
-                console.log("DELTEETED");
                 success();
             }
         });
