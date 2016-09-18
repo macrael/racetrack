@@ -4,6 +4,7 @@ var $ = require("./jquery-3.1.0.js");
 var Handlebars = require("./handlebars-v4.0.5.js");
 var calculator = require("./calculate.js");
 var api = require("./racetrack_api.js");
+var ui = require("./ui.js");
 
 var queens = {
     loadView: function (season) {
@@ -47,23 +48,9 @@ var queens = {
             });
         });
 
-        // hook up all the delete buttons
-        // TODO: this should be common, for sure. All delete buttons work the same
-        season.queens.forEach(function(queen, index) {
-            console.log(queen);
-            var del_key = "#DEL" + queen.key;
-            del_key = del_key.replace(/:/, '\\:');
-            $(del_key).click(function() {
-                //TODO: make it a double-click situation.
+        ui.configureDeleteButtons(season["key"], "queens", season.queens, router);
 
-                api.deleteObject(season["key"], "queens", queen.key, function() {
-                    console.log("deleting!");
-                    router.reresolve();
-                });
-            });
-        });
     }
-
 }
 
 module.exports = queens;

@@ -4,6 +4,7 @@ var $ = require("./jquery-3.1.0.js");
 var Handlebars = require("./handlebars-v4.0.5.js");
 var calculator = require("./calculate.js");
 var api = require("./racetrack_api.js");
+var ui = require("./ui.js");
 
 var players = {
     loadView: function (season) {
@@ -127,17 +128,7 @@ var players = {
             });
         });
 
-        season.players.forEach(function(player, index) {
-            console.log(player);
-            var del_key = "#DEL" + player.key;
-            del_key = del_key.replace(/:/, '\\:');
-            $(del_key).click(function() {
-                api.deleteObject(season["key"], "players", player.key, function() {
-                    console.log("deletingp!");
-                    router.reresolve();
-                });
-            });
-        });
+        ui.configureDeleteButtons(season["key"], "players", season.players, router);
 
         $("#new-player-form").submit(function(e) {
             e.preventDefault();

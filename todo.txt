@@ -35,10 +35,12 @@ x calculate scores
 * Refactor Frontend
     x refactor to have a build system and be broken into smaller parts
     * refactor adding actions so it's not as complex
-        * refactor adding delete buttons
+        x refactor adding delete buttons
         * very repeaty in js.
     x refactor js views into separate files
         x things that don't depend on one another should be easy to split.
+
+* figure out how to deploy the webpack'd js
 
 * show the most recent episode delta in the player/queen views
 * show which queens each team has in the edit players page

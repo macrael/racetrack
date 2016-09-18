@@ -3,6 +3,7 @@
 var $ = require("./jquery-3.1.0.js");
 var Handlebars = require("./handlebars-v4.0.5.js");
 var api = require("./racetrack_api.js");
+var ui = require("./ui.js");
 
 var play_types = {
     loadEditView: function(season, router) {
@@ -29,18 +30,7 @@ var play_types = {
             });
         });
 
-        season.play_types.forEach(function(play_type, index) {
-            console.log(play_type);
-            var del_key = "#DEL" + play_type.key;
-            del_key = del_key.replace(/:/, '\\:');
-            $(del_key).click(function() {
-                api.deleteObject(season["key"], "play_types", play_type.key, function() {
-                    console.log("deletinPTg!");
-                    router.reresolve();
-                });
-            });
-        });
-
+        ui.configureDeleteButtons(season["key"], "play_types", season.play_types, router);
     }
 }
 

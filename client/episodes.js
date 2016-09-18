@@ -3,6 +3,7 @@
 var $ = require("./jquery-3.1.0.js");
 var Handlebars = require("./handlebars-v4.0.5.js");
 var api = require("./racetrack_api.js");
+var ui = require("./ui.js");
 
 var episodes = {
 
@@ -37,17 +38,9 @@ var episodes = {
             });
         });
 
-        season.episodes.forEach(function(episode, index) {
-            console.log(episode);
-            var del_key = "#DEL" + episode.key;
-            del_key = del_key.replace(/:/, '\\:');
-            $(del_key).click(function() {
-                api.deleteObject(season["key"], "episodes", episode.key, function() {
-                    console.log("DELTEETEDee");
-                    router.reresolve();
-                });
-            });
+        ui.configureDeleteButtons(season["key"], "episodes", season.episodes, router);
 
+        season.episodes.forEach(function(episode, index) {
             var edit_key = "#EDIT" + episode.key;
             edit_key = edit_key.replace(/:/, '\\:');
             $(edit_key).click(function() {
@@ -126,17 +119,7 @@ var episodes = {
             });
         });
 
-        plays.forEach(function(play, index) {
-            var del_key = "#DEL" + play.key;
-            del_key = del_key.replace(/:/, '\\:');
-            $(del_key).click(function() {
-                api.deleteObject(season["key"], "plays", play.key, function() {
-                    console.log("DELTEETEDpee");
-                    router.reresolve();
-                });
-            });
-
-        });
+        ui.configureDeleteButtons(season["key"], "plays", season.plays, router);
         
         // setup the submit button
         $("#add-play").click(function() {
