@@ -14,6 +14,8 @@ Installation (full)
 9. `redis-cli`: -- create the season....
 10. echo REDIS_URL="redis://localhost:6379" >> .env
 11. go build && ./racetrack
+12. npm install webpack
+13. webpack --watch
 
 
 Deployment (from scratch)
