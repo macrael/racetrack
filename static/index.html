@@ -6,10 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css" href="/assets/racetrack.css">
 <title>Fantasy Speedway</title>
-<script id="main" type="text/x-handlebars-template">
-<h1>RPDR Feel The Fantasy League</h1>
-<h2 id="season_name">¡Season Name¡</h2>
-</script>
 
 <script id="edit-main" type="text/x-handlebars-template">
     <h1>You are editing Drag Race</h1>
@@ -190,9 +186,25 @@
 </script>
 
 <script id="display-main" type="text/x-handlebars-template">
-<h1>RPDR Fantasy</h1>
-<h2>{{season_title}}</h2>
+<header id="season-title">{{season_title}}</header>
+
 {{{bod}}}
+</script>
+
+<script id="player-standings" type="text/x-handlebars-template">
+<div class="players-standings">
+<div class="standings-hed">Standings as of Episode {{current_ep_number}}:</div>
+{{#each players}}
+    <div class="player-standing">
+        <div class="scores">
+            {{score}} ({{ep_delta}})
+        </div>
+        <div class="team-name">{{team_name}}</div>
+        <div class="player-name">{{name}}</div>
+    </div>
+{{/each}}
+</div>
+
 </script>
 
 <script id="queen-standings" type="text/x-handlebars-template">
@@ -217,39 +229,15 @@
 </table>
 </script>
 
-<script id="player-standings" type="text/x-handlebars-template">
-<h3>Here&rsquo;s how things stand:</h3>
-<table>
-    <thead>
-        <tr>
-            <th>Player</th>
-            <th>Team Name</th>
-            <th>Score</th>
-            <th>This week</th>
-        </tr>
-    </thead>
-    <tbody>
-        {{#each players}}
-        <tr>
-            <td>{{name}}</td>
-            <td>{{team_name}}</td>
-            <td>{{score}}</td>
-            <td>{{ep_delta}}</td>
-        </tr>
-        {{/each}}
-    </tbody>
-</table>
-</script>
-
-
 </head>
 <body>
+<header id="site-title">💅 RPDR Fantasy 💁</header>
 
 <div id="content">
 loading...
 </div>
 
-<button type="button" id="debug_button">Deubg</button>
+<!-- <button type="button" id="debug_button">Deubg</button> -->
 
 </body>
 </html>

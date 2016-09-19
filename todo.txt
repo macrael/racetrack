@@ -34,25 +34,29 @@ x Refactor Frontend
     x refactor js views into separate files
         x things that don't depend on one another should be easy to split.
     x theres slop in racetrack.js around the global TheSeason and trying to pass it around
+x show the most recent episode delta in the player/queen views
 
 * remove the debug button from prod
 * figure out how to deploy the webpack'd js
 
-* show the most recent episode delta in the player/queen views
 * show which queens each player has in the main page
 * create the view-episode link
-* queens shoul show everything they've done in previous episodes under them.
+* queens should show everything they've done in previous episodes under them.
 * Put the plays and queens in order at least.
 * link to all the pages from everything
 
 * prod is slow loading
+* make webpack minify everything
+* figure out why I'd want it to eat my css too? (minification?)
 
+* Take eleminated queens off of the (next?) edit episode list. 
 * get rid of the default text in everything
 * in edit-episode, make the history have alternating hilighted rows
 * solve the bin-packing problem
 * create nav between different parts of main pages. 
 * create the UI
 * why did I have to refresh the page 6 times to get the new js?
+* password protect the edit page
 
 
 * queens need images, at least. Players (teams?) too.
@@ -97,7 +101,7 @@ Three tabs:
 EDIT:
 -----
 * add new episode
-    * add/remove scoreing from episode
+    * add/remove scoring from episode
 ...
 * add new queen
 * add new pleb

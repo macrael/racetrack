@@ -32,7 +32,7 @@ function seasonDict(season) {
 
 
 // inserts "score" into all the queen objects
-function calculateQueenScores(season, most_recent_episode_key) {
+function calculateQueenScores(season) {
 
     var seasonD = seasonDict(season);
 
@@ -48,7 +48,7 @@ function calculateQueenScores(season, most_recent_episode_key) {
         var playType = seasonD["play_types"][play["play_type_key"]];
 
         queen.score = queen.score + playType.effect;
-        if (play.episode_key == most_recent_episode_key) {
+        if (play.episode_key == season.most_recent_episode_key) {
             queen.ep_delta = queen.ep_delta + playType.effect;
         }
     }
@@ -62,7 +62,7 @@ function calculateQueenScores(season, most_recent_episode_key) {
 }
 
 // this requires the queen scores to have been calculated already...
-function calculatePlayerScores(season, most_recent_episode_key) {
+function calculatePlayerScores(season) {
     var seasonD = seasonDict(season);
 
     for (var playerKey in seasonD["players"]) {
@@ -94,12 +94,14 @@ function calculateScores(season) {
         return a.number - b.number;
     });
     var most_recent_episode_key = null;
+    var most_recent_episode_num = null;
     if (sorted_eps.length != 0) {
-        most_recent_episode_key = sorted_eps[sorted_eps.length - 1].key
+        season["most_recent_episode_key"] = sorted_eps[sorted_eps.length - 1].key
+        season["most_recent_episode_num"] = sorted_eps[sorted_eps.length - 1].number
     }
 
-    calculateQueenScores(season, most_recent_episode_key);
-    calculatePlayerScores(season, most_recent_episode_key);
+    calculateQueenScores(season);
+    calculatePlayerScores(season);
 }
 
 

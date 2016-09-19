@@ -19,7 +19,9 @@ var players = {
         });
 
         var playerStandings = display_main_template({season_title: season["title"],
-            bod: player_standings_template({players: sortedPlayers}) });
+            bod: player_standings_template({players: sortedPlayers,
+                current_ep_number: season["most_recent_episode_num"]
+                }) });
 
         $("#content").html(playerStandings);
     },

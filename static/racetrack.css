@@ -1,6 +1,53 @@
+html {
+    font-family: Optima;
+}
+
 body {
     background-color: lightgreen;
+    margin-left: 0;
+    margin-right: 0;
 }
+
+header#site-title {
+    font-size: 40px;
+    text-align: center;
+}
+
+header#season-title {
+    font-size: 20px;
+    text-align: center;
+}
+
+div.players-standings {
+    margin-top: 15px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 8px;
+}
+
+div.standings-hed {
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+div.player-standing {
+    padding-bottom: .5em;
+}
+
+div.scores {
+    font-family: Futura;
+    float: right;
+    font-size: 25px;
+    margin-top: -4px;
+}
+
+div.team-name {
+    font-size: 1.5em;
+}
+
+
 
 button.picker {
     border-width: 2px;
@@ -33,3 +80,27 @@ ul.button-list {
 ul.button-list li {
     display: inline-block;
 }
+
+
+div.nav {
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    border-radius: 8px;
+
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+
+    width: 190px;
+    
+}
+
+div.nav span {
+    margin: 5px;
+}
+
+div.nav span.selected {
+    background-color: red;
+}
+
