@@ -5,9 +5,4 @@ module.exports = {
         path: __dirname + "/static",
         filename: "racetrack.js"
     }
-    // module: {
-    //     loaders: [
-    //         { test: /\.css$/, loader: "style!css" }
-    //     ]
-    // }
 };

@@ -1,0 +1,21 @@
+{
+  "name": "racetrack",
+  "version": "1.0.0",
+  "description": "Ru Paul's Drag Race Fantasy League Calculator",
+  "scripts": {
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/macrael/racetrack.git"
+  },
+  "author": "MacRae Linton",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/macrael/racetrack/todo.txt"
+  },
+  "homepage": "https://github.com/macrael/racetrack#readme",
+  "dependencies": {
+    "webpack": "^1.13.2"
+  }
+}
