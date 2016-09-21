@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Ru Paul's Drag Race Fantasy League Calculator",
   "scripts": {
-    "build": "webpack"
+    "postinstall": "webpack"
   },
   "repository": {
     "type": "git",
