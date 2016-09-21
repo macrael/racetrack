@@ -35,9 +35,10 @@ x Refactor Frontend
         x things that don't depend on one another should be easy to split.
     x theres slop in racetrack.js around the global TheSeason and trying to pass it around
 x show the most recent episode delta in the player/queen views
-
-* remove the debug button from prod
 * figure out how to deploy the webpack'd js
+
+* get the webpack debug / prod thing to work
+* remove the debug button from prod
 
 * show which queens each player has in the main page
 * create the view-episode link
